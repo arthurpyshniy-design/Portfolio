@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Кейс: создание личного сайта-портфолио на HTML и CSS с публикацией через GitHub Pages.">
+  <title>Кейс — сайт Portfolio</title>
+  <style>
+    :root { color-scheme: dark; --bg:#101218; --panel:#191d27; --text:#eef1f7; --muted:#a4adbf; --line:#303746; --accent:#8edff0; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif; }
+    a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+    .wrap { width:min(100% - 40px, 920px); margin:auto; }
+    header { padding:22px 0; border-bottom:1px solid var(--line); }
+    nav { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+    .brand { font-weight:750; letter-spacing:.08em; font-size:.86rem; }
+    .navlinks { display:flex; gap:18px; color:var(--muted); font-size:.92rem; }
+    main { padding:58px 0 72px; }
+    .eyebrow { color:var(--accent); font-size:.76rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { font-size:clamp(2.3rem,6vw,4.3rem); line-height:1.06; letter-spacing:-.05em; margin:16px 0; }
+    h2 { font-size:1.45rem; line-height:1.2; margin:0 0 12px; }
+    h3 { font-size:1.05rem; margin:0 0 8px; }
+    p { margin:0 0 14px; }
+    .lead { color:#c0c7d5; max-width:760px; font-size:1.1rem; }
+    .facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:30px 0 50px; }
+    .fact,.panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .label { color:var(--muted); font-size:.78rem; margin-bottom:5px; }
+    section { padding:0 0 34px; }
+    section p, li { color:#c2c9d7; }
+    ul,ol { padding-left:22px; margin:8px 0 0; }
+    li { margin:0 0 8px; }
+    .two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .status { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:4px 10px; color:var(--muted); font-size:.8rem; margin:5px 0 20px; }
+    .note { border-left:3px solid var(--accent); padding:4px 0 4px 16px; }
+    footer { border-top:1px solid var(--line); padding:22px 0 32px; color:var(--muted); font-size:.88rem; }
+    @media(max-width:640px) { .wrap{width:min(100% - 28px,920px)} main{padding:42px 0 52px} .facts,.two{grid-template-columns:1fr} .navlinks{gap:12px} }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><nav aria-label="Основная навигация"><a class="brand" href="index.html">PORTFOLIO / PROJECT ARCHIVE</a><div class="navlinks"><a href="index.html#projects">Проекты</a><a href="index.html#about">О портфолио</a><a href="https://github.com/arthurpyshniy-design/Portfolio">Код сайта</a></div></nav></div></header>
+  <main class="wrap">
+    <div class="eyebrow">Case study / Web</div>
+    <h1>Личный сайт-портфолио</h1>
+    <p class="lead">Единая публичная точка входа для проектов разных направлений. Сайт отделяет краткую презентацию работ от их исходников и подробных материалов, которые могут храниться в отдельных репозиториях или оставаться локальными.</p>
+    <span class="status">Первая опубликованная версия · каталог в развитии</span>
+
+    <div class="facts">
+      <div class="fact"><div class="label">Назначение</div><strong>Каталог проектов</strong></div>
+      <div class="fact"><div class="label">Технологии</div><strong>HTML + CSS</strong></div>
+      <div class="fact"><div class="label">Публикация</div><strong>GitHub Pages</strong></div>
+    </div>
+
+    <section>
+      <div class="eyebrow">01 / Context</div>
+      <h2>Задача</h2>
+      <p>Собрать проекты в одном месте, хотя они отличаются по тематике и готовности. Часть материалов уже существует в GitHub, часть пока хранится на компьютере, а некоторые проекты не следует публиковать целиком.</p>
+      <p>Сайт должен показывать направление работы и статус проекта, не требуя переносить все исходники в один репозиторий.</p>
+    </section>
+
+    <section>
+      <div class="eyebrow">02 / Constraints</div>
+      <h2>Ограничения</h2>
+      <ul>
+        <li>Использовать бесплатный способ публикации и не покупать домен на первом этапе.</li>
+        <li>Сохранить исходники каждого проекта отдельно; не превращать сайт в общий монорепозиторий.</li>
+        <li>Не раскрывать приватный код, командные материалы и личные данные без проверки разрешений.</li>
+        <li>Сделать первую версию простой в поддержке, без сервера, базы данных и обязательной сборки.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="eyebrow">03 / Approach</div>
+      <h2>Подход и реализация</h2>
+      <div class="two">
+        <div class="panel">
+          <h3>Статическая страница</h3>
+          <p>Главная страница реализована в одном файле <code>index.html</code>; стили CSS находятся внутри файла. JavaScript и серверная часть в текущей версии не используются.</p>
+        </div>
+        <div class="panel">
+          <h3>Карточки со статусами</h3>
+          <p>Каталог показывает четыре проекта: GlyphDeck, FiberWatch, циферблат Xiaomi Watch S5 и Кабанан / NRI. Указывается, если материалы пока локальные или исходники приватные.</p>
+        </div>
+        <div class="panel">
+          <h3>Простая адаптивная сетка</h3>
+          <p>В CSS есть контрольная точка на ширине 640 px: карточки переключаются с двух колонок на одну. Фактическая проверка на телефоне ещё не проводилась.</p>
+        </div>
+        <div class="panel">
+          <h3>Публикация из репозитория</h3>
+          <p>Исходник и README размещены в публичном репозитории <a href="https://github.com/arthurpyshniy-design/Portfolio">Portfolio</a>; опубликованная страница доступна по адресу <a href="https://arthurpyshniy-design.github.io/Portfolio/">GitHub Pages</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">04 / Verification</div>
+      <h2>Что проверено</h2>
+      <ul>
+        <li>Страница открывалась в браузере; визуальная проверка по скриншоту подтвердила отображение шапки, вводного блока, каталога, информации о портфолио и подвала.</li>
+        <li>Состав файлов проверен в репозитории: <code>index.html</code> и <code>README.md</code>; отдельная страница кейса добавлена в этой версии.</li>
+        <li>В исходнике присутствуют метатег viewport и CSS-правило для узкого экрана.</li>
+      </ul>
+      <div class="note"><p><strong>Граница проверки:</strong> не проводились автоматические тесты, проверка доступности для скринридеров, замеры производительности или полноценная проверка на мобильном устройстве. Никакие количественные показатели качества не заявляются.</p></div>
+    </section>
+
+    <section>
+      <div class="eyebrow">05 / Contribution</div>
+      <h2>Роль автора и использование ИИ</h2>
+      <p>Автор определил назначение сайта, состав направлений, требования к приватности, создал репозиторий и проверил опубликованную страницу в браузере. Первичная HTML/CSS-реализация и текст README были подготовлены с помощью ChatGPT и внесены в репозиторий с использованием GitHub-инструментов.</p>
+      <p>Поэтому эту версию корректно описывать как AI-assisted prototype, а не как полностью самостоятельно написанный код.</p>
+    </section>
+
+    <section>
+      <div class="eyebrow">06 / Outcome & next steps</div>
+      <h2>Результат и дальнейшая работа</h2>
+      <p>Создан и опубликован работающий каталог с четырьмя карточками проектов. Он даёт общую точку входа, сохраняя отдельное хранение исходников и позволяя обозначать ограничения публикации.</p>
+      <ul>
+        <li>Добавить отдельные кейсы с доказательствами результата и ссылками на доступные материалы.</li>
+        <li>Проверить вёрстку на реальном телефоне и на обычном масштабе браузера.</li>
+        <li>Добавить прямые ссылки только там, где материалы действительно доступны и согласованы к публикации.</li>
+        <li>Обновлять описания и статусы по мере развития проектов.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="eyebrow">Current limitations</div>
+      <h2>Ограничения текущей версии</h2>
+      <p>Каталог пока содержит краткие описания, но не все карточки ведут на самостоятельные страницы проектов. Нет CMS, фильтрации, поиска по категориям или автоматического обновления каталога. Это сознательно оставлено за пределами первой версии.</p>
+    </section>
+  </main>
+  <footer><div class="wrap"><a href="index.html">← Назад к каталогу</a> · <a href="https://github.com/arthurpyshniy-design/Portfolio">Исходный код и README</a></div></footer>
+</body>
+</html>
