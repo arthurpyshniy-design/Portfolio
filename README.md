@@ -1,11 +1,12 @@
-# Engineering Portfolio
+# Personal Project Portfolio
 
-Personal portfolio and index of engineering, software, and design projects.
+A public index of projects across engineering, software, design, and creative systems.
 
 ## Contents
 
-- `index.html` — portfolio homepage (HTML and CSS in one file for the initial version).
-- Project repositories remain separate; this repository links to them and summarizes their current status.
+- `index.html` — portfolio homepage.
+- `portfolio-case.html` — case study documenting the purpose, implementation, constraints, and current limitations of this site.
+- Project source code and detailed materials remain in their own repositories or private/local storage.
 
 ## Publish with GitHub Pages
 
@@ -14,12 +15,14 @@ Personal portfolio and index of engineering, software, and design projects.
 3. Select branch `main` and folder `/ (root)`, then save.
 4. Wait for the Pages deployment to complete and open the published URL shown in the Pages settings.
 
-Because this repository is named `Portfolio`, the expected project-site URL is `https://arthurpyshniy-design.github.io/Portfolio/` (subject to GitHub Pages settings and deployment status).
+Expected URL: https://arthurpyshniy-design.github.io/Portfolio/
 
 ## Portfolio principles
 
-Each project page or card should distinguish verified results from plans, show its status, and describe the problem, constraints, approach, verification, outcome, and next steps. Do not publish private source code, personal data, secrets, or team materials without authorization.
+Each project card should distinguish verified results from plans, state the current status, and link to supporting materials when they are safe to publish. A full case should explain the problem, constraints, approach, verification, outcome, limitations, and next steps.
+
+Do not publish private source code, personal data, secrets, or team materials without authorization.
 
 ## Current status
 
-Initial homepage created. The project catalog is a first draft and should be updated as local projects are reviewed and publication permissions are confirmed.
+The homepage and first site case are published as an initial version. The project catalog remains a work in progress; not every project yet has a detailed case page, repository link, or independently verified result.
