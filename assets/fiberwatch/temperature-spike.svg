@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Синтетическая температурная последовательность</title>
+  <desc id="desc">Семь искусственных значений. Между четвёртым и пятым значениями происходит скачок с 21.1 до 24.5, абсолютная разница 3.4 при пороге 2.0.</desc>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#334149" stroke-width="1" opacity=".46"/></pattern>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d6ad89"/></marker>
+  </defs>
+  <rect width="1200" height="620" fill="#0c1014"/>
+  <rect width="1200" height="620" fill="url(#grid)" opacity=".34"/>
+  <text x="52" y="48" fill="#8edff0" font-family="ui-monospace,Consolas,monospace" font-size="16" font-weight="700" letter-spacing="2">FIBERWATCH / TEMPERATURE TRACE</text>
+  <text x="52" y="82" fill="#edf0ec" font-family="system-ui,sans-serif" font-size="25" font-weight="650">Искусственная последовательность измерений</text>
+  <text x="52" y="109" fill="#89979d" font-family="ui-monospace,Consolas,monospace" font-size="14">SYNTHETIC DATA · VALUES WITHOUT UNIT</text>
+  <rect x="52" y="132" width="1096" height="366" fill="#10171c" stroke="#334149"/>
+  <g stroke="#334149" stroke-width="1" opacity=".8">
+    <line x1="104" y1="178" x2="1115" y2="178"/>
+    <line x1="104" y1="232" x2="1115" y2="232"/>
+    <line x1="104" y1="286" x2="1115" y2="286"/>
+    <line x1="104" y1="340" x2="1115" y2="340"/>
+    <line x1="104" y1="394" x2="1115" y2="394"/>
+    <line x1="104" y1="448" x2="1115" y2="448"/>
+  </g>
+  <g fill="#89979d" font-family="ui-monospace,Consolas,monospace" font-size="13" text-anchor="end">
+    <text x="91" y="183">25</text><text x="91" y="237">24</text><text x="91" y="291">23</text><text x="91" y="345">22</text><text x="91" y="399">21</text><text x="91" y="453">20</text>
+  </g>
+  <g stroke="#8edff0" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="135,394 291,383 447,399 603,388"/>
+    <polyline points="759,205 915,189 1071,200"/>
+  </g>
+  <polyline points="603,388 759,205" stroke="#d6ad89" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <g fill="#0c1014" stroke="#8edff0" stroke-width="3">
+    <circle cx="135" cy="394" r="6"/><circle cx="291" cy="383" r="6"/><circle cx="447" cy="399" r="6"/><circle cx="603" cy="388" r="6"/>
+    <circle cx="915" cy="189" r="6"/><circle cx="1071" cy="200" r="6"/>
+  </g>
+  <circle cx="759" cy="205" r="8" fill="#d6ad89" stroke="#0c1014" stroke-width="3"/>
+  <g fill="#edf0ec" font-family="ui-monospace,Consolas,monospace" font-size="16" font-weight="700" text-anchor="middle">
+    <text x="135" y="373">21.0</text><text x="291" y="362">21.2</text><text x="447" y="378">20.9</text><text x="603" y="367">21.1</text>
+    <text x="759" y="183" fill="#d6ad89">24.5</text><text x="915" y="167">24.8</text><text x="1071" y="178">24.6</text>
+  </g>
+  <g fill="#89979d" font-family="ui-monospace,Consolas,monospace" font-size="13" text-anchor="middle">
+    <text x="135" y="478">01</text><text x="291" y="478">02</text><text x="447" y="478">03</text><text x="603" y="478">04</text><text x="759" y="478">05</text><text x="915" y="478">06</text><text x="1071" y="478">07</text>
+  </g>
+  <path d="M678 307 L726 250" fill="none" stroke="#d6ad89" stroke-width="1.7" marker-end="url(#arrow)"/>
+  <rect x="470" y="263" width="236" height="83" rx="2" fill="#182129" stroke="#d6ad89"/>
+  <text x="489" y="291" fill="#d6ad89" font-family="ui-monospace,Consolas,monospace" font-size="15" font-weight="700">Δ соседей = 3.4</text>
+  <text x="489" y="317" fill="#edf0ec" font-family="system-ui,sans-serif" font-size="15">Порог срабатывания: 2.0</text>
+  <text x="52" y="545" fill="#d6ad89" font-family="ui-monospace,Consolas,monospace" font-size="14" font-weight="700" letter-spacing="1">TRIGGER / |Tᵢ − Tᵢ₋₁| ≥ 2.0</text>
+  <text x="52" y="575" fill="#aeb9bc" font-family="system-ui,sans-serif" font-size="14">Подсвеченный переход отмечается как резкое изменение. Это не подтверждение смены режима.</text>
+</svg>

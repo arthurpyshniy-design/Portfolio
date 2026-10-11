@@ -82,6 +82,8 @@
     .card-id { color:var(--subtle); font:700 .65rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.08em; }
     .card-type { color:var(--cyan); font:700 .61rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.065em; text-transform:uppercase; text-align:right; }
     .card h3 { margin:0 0 10px; font-size:1.32rem; letter-spacing:-.035em; line-height:1.15; }
+    .card-title-link { color:var(--text); border-bottom:1px solid transparent; }
+    .card-title-link:hover { color:var(--cyan); border-bottom-color:var(--cyan); }
     .card p { margin:0 0 18px; color:var(--muted); font-size:.9rem; }
     .card-visual { width:100%; min-height:76px; margin:0 0 18px; padding:12px 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
     .flow-label { display:block; margin-bottom:10px; color:var(--subtle); font:700 .59rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
@@ -222,14 +224,14 @@
           </article>
           <article class="card">
             <div class="card-top"><span class="card-id">ENTRY / 003</span><span class="card-type">Signal processing</span></div>
-            <h3>FiberWatch</h3>
-            <p>Командный проект по анализу температурных и виброакустических данных распределённых волоконно-оптических датчиков.</p>
+            <h3><a class="card-title-link" href="fiberwatch.html">FiberWatch <span aria-hidden="true">↗</span></a></h3>
+            <p>Командный проект по анализу данных распределённых волоконно-оптических датчиков. Отдельный кейс показывает мой учебный прототип на искусственных температурных данных.</p>
             <div class="card-visual" role="img" aria-label="Схема обработки данных FiberWatch: CSV, допустимые значения, сравнение соседних измерений">
               <span class="flow-label">DATA CHECK / SCHEMATIC, NOT MEASURED DATA</span>
               <div class="pipeline"><span>CSV</span><span>VALID VALUES</span><span>NEIGHBOR CHECK</span></div>
               <span class="visual-note">Схематичная последовательность; не график измерений.</span>
             </div>
-            <span class="status">Материалы пока локальные</span>
+            <span class="status">Учебный прототип · синтетические данные</span>
           </article>
           <article class="card">
             <div class="card-top"><span class="card-id">ENTRY / 004</span><span class="card-type">Creative systems · TTRPG</span></div>
