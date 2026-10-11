@@ -5,7 +5,9 @@ A public index of projects across engineering, software, design, and creative sy
 ## Contents
 
 - `index.html` — portfolio homepage.
+- `DESIGN_SYSTEM.md` — visual, content, accessibility, and publication rules for the portfolio.
 - `portfolio-case.html` — case study documenting the purpose, implementation, constraints, and current limitations of this site.
+- `xiaomi-watch-s5.html` — first detailed creative-design case study.
 - Project source code and detailed materials remain in their own repositories or private/local storage.
 
 ## Publish with GitHub Pages

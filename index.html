@@ -19,6 +19,7 @@
       --line-soft: rgba(151, 178, 185, .15);
       --cyan: #8edff0;
       --warm: #d6ad89;
+      --status-dot: #718087;
       --max: 1120px;
     }
     * { box-sizing: border-box; }
@@ -101,9 +102,7 @@
     .card h3 { margin: 0 0 10px; font-size: 1.35rem; letter-spacing: -.035em; line-height: 1.15; }
     .card p { margin: 0 0 20px; color: var(--muted); font-size: .91rem; }
     .status { display: inline-flex; align-items: flex-start; gap: 8px; margin-top: auto; padding-top: 12px; color: #bdc7c9; font-size: .74rem; line-height: 1.45; border-top: 1px solid var(--line-soft); width: 100%; }
-    .status::before { content: ""; flex: 0 0 6px; width: 6px; height: 6px; margin-top: .42em; border-radius: 50%; background: var(--warm); }
-    .card:nth-child(2) .status::before { background: #d6ad89; }
-    .card:nth-child(3) .status::before { background: #8edff0; }
+    .status::before { content: ""; flex: 0 0 6px; width: 6px; height: 6px; margin-top: .42em; border-radius: 50%; background: var(--status-dot); }
     .about { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(17, 23, 28, .75); padding: 48px 0 52px; }
     .about-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 54px; }
     .about h2 { max-width: 390px; margin: 10px 0 0; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.045em; }
@@ -170,7 +169,7 @@
           <div class="hero-tags" aria-label="Направления проектов"><span class="text-tag">ENGINEERING</span><span class="text-tag">SOFTWARE</span><span class="text-tag">DESIGN</span><span class="text-tag">CREATIVE SYSTEMS</span></div>
         </div>
         <aside class="index-panel" aria-label="Сводка архива">
-          <div class="panel-head"><span>ARCHIVE INDEX</span><span>2026 / 01</span></div>
+          <div class="panel-head"><span>ARCHIVE INDEX</span><span>SITE / v1.0</span></div>
           <div class="index-row"><span class="index-value">04</span><span class="index-label">проекта в каталоге</span></div>
           <div class="index-row"><span class="index-value">02</span><span class="index-label">подробных публичных кейса</span></div>
           <div class="index-row"><span class="index-value">∞</span><span class="index-label">пространство для будущих направлений</span></div>
