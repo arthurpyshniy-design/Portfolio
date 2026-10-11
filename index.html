@@ -3,228 +3,260 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Личный архив инженерных, программных, дизайнерских и творческих проектов. Задачи, решения, эксперименты и результаты.">
+  <meta name="description" content="Личный архив инженерных, программных, дизайнерских и творческих проектов: задачи, решения, эксперименты и подтверждённые результаты.">
   <meta name="theme-color" content="#0c1014">
   <title>Portfolio — личный архив проектов</title>
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0c1014;
-      --surface: #131a20;
-      --surface-raised: #182129;
-      --text: #edf0ec;
-      --muted: #a1adb0;
-      --subtle: #718087;
-      --line: #334149;
-      --line-soft: rgba(151, 178, 185, .15);
-      --cyan: #8edff0;
-      --warm: #d6ad89;
-      --status-dot: #718087;
-      --max: 1120px;
+      --bg: #0c1014; --surface: #131a20; --surface-raised: #182129;
+      --text: #edf0ec; --muted: #aeb9bc; --subtle: #89979d;
+      --line: #334149; --line-soft: rgba(151, 178, 185, .17);
+      --cyan: #8edff0; --warm: #d6ad89; --max: 1120px;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      position: relative;
-      isolation: isolate;
-      margin: 0;
-      color: var(--text);
-      background: var(--bg);
-      font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
-      text-rendering: optimizeLegibility;
+    body { position:relative; isolation:isolate; margin:0; color:var(--text); background:var(--bg); font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; text-rendering:optimizeLegibility; }
+    body::before { content:""; position:absolute; inset:0 0 auto; height:780px; pointer-events:none; opacity:.36; background-image:linear-gradient(rgba(142,223,240,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(142,223,240,.05) 1px,transparent 1px),radial-gradient(ellipse at 76% 8%,rgba(53,104,117,.24),transparent 54%); background-size:48px 48px,48px 48px,auto; mask-image:linear-gradient(to bottom,#000 0%,transparent 94%); z-index:-1; }
+    a { color:var(--cyan); text-decoration:none; }
+    a:hover { color:#c6f4fb; }
+    a:focus-visible { outline:2px solid var(--cyan); outline-offset:4px; border-radius:2px; }
+    img,svg { display:block; max-width:100%; }
+    .wrap { width:min(calc(100% - 44px),var(--max)); margin:0 auto; }
+    .skip-link { position:absolute; left:-9999px; top:8px; z-index:10; padding:8px 12px; background:var(--text); color:var(--bg); }
+    .skip-link:focus { left:12px; }
+    .site-header { border-bottom:1px solid var(--line); background:rgba(12,16,20,.94); }
+    .topbar { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; color:var(--text); min-width:0; }
+    .brand-mark { position:relative; display:grid; place-items:center; width:34px; height:34px; flex:0 0 auto; border:1px solid var(--cyan); color:var(--cyan); font:800 .7rem/1 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:-.05em; }
+    .brand-mark::after { content:""; position:absolute; width:5px; height:5px; right:-3px; top:-3px; background:var(--warm); }
+    .brand-name { overflow-wrap:anywhere; font-size:.79rem; font-weight:750; letter-spacing:.12em; line-height:1.25; }
+    .navlinks { display:flex; align-items:center; gap:24px; font-size:.88rem; color:var(--muted); }
+    .navlinks a { color:var(--muted); }
+    .navlinks a:hover { color:var(--text); }
+    .navlinks .github-link { color:var(--cyan); border-bottom:1px solid var(--line); padding:5px 0; }
+    .mono { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .eyebrow { color:var(--cyan); font:750 .7rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.15em; text-transform:uppercase; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(260px,.7fr); align-items:end; gap:clamp(28px,5vw,64px); padding:84px 0 70px; }
+    h1 { margin:18px 0 22px; max-width:760px; font-size:clamp(2.8rem,6.6vw,5.8rem); line-height:.98; letter-spacing:-.068em; font-weight:760; }
+    h1 em { color:var(--warm); font-style:normal; }
+    .lead { max-width:660px; margin:0; color:#c5ced0; font-size:clamp(1.03rem,1.5vw,1.17rem); line-height:1.75; }
+    .hero-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:26px; }
+    .text-tag { border:1px solid var(--line); padding:5px 9px; color:#c5ced0; font:650 .65rem/1.35 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.055em; }
+    .archive-index { position:relative; border-top:2px solid var(--warm); border-bottom:1px solid var(--line); background:linear-gradient(145deg,rgba(24,33,41,.94),rgba(17,23,28,.78)); padding:20px 22px 18px; }
+    .archive-index::before { content:""; position:absolute; top:0; right:22px; width:1px; height:15px; background:var(--warm); }
+    .index-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-bottom:14px; margin-bottom:3px; border-bottom:1px solid var(--line-soft); color:var(--muted); font:700 .66rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    .index-row { display:grid; grid-template-columns:70px 1fr; gap:14px; align-items:baseline; padding:12px 0; border-bottom:1px solid var(--line-soft); }
+    .index-row:last-of-type { border-bottom:0; }
+    .index-value { font-size:1.85rem; line-height:1; letter-spacing:-.05em; }
+    .index-label { color:var(--muted); font-size:.8rem; line-height:1.4; }
+    .index-foot { display:flex; align-items:center; gap:8px; margin-top:13px; color:var(--subtle); font:650 .62rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.08em; }
+    .index-foot::before { content:""; width:6px; height:6px; background:var(--warm); }
+    .section { padding:24px 0 66px; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:24px; padding-bottom:18px; margin-bottom:24px; border-bottom:1px solid var(--line); }
+    .section-title-wrap { min-width:0; }
+    .section-index { display:block; margin-bottom:6px; color:var(--warm); font:750 .68rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.13em; }
+    .section-head h2 { margin:0; font-size:clamp(1.8rem,3.1vw,2.6rem); line-height:1.08; letter-spacing:-.045em; }
+    .section-head p { max-width:410px; margin:0; color:var(--muted); font-size:.9rem; }
+    .feature-label { display:flex; justify-content:space-between; gap:12px; margin-bottom:10px; color:var(--subtle); font:700 .65rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    .featured { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:0; overflow:hidden; border:1px solid #46545b; border-top:2px solid var(--cyan); background:var(--surface); }
+    .feature-copy { display:flex; flex-direction:column; align-items:flex-start; padding:clamp(24px,4vw,42px); }
+    .case-id { color:var(--warm); font:750 .68rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.13em; text-transform:uppercase; }
+    .featured h3 { max-width:570px; margin:15px 0 14px; font-size:clamp(1.8rem,3.4vw,3rem); line-height:1.06; letter-spacing:-.05em; }
+    .featured p { max-width:510px; margin:0 0 18px; color:var(--muted); }
+    .feature-meta { display:flex; flex-wrap:wrap; gap:7px; margin:0 0 25px; }
+    .feature-meta span { border:1px solid var(--line); padding:4px 8px; color:#cad1d0; font-size:.7rem; }
+    .feature-link { display:inline-flex; align-items:center; gap:12px; margin-top:auto; padding:10px 0; border-bottom:1px solid var(--cyan); font-weight:700; }
+    .feature-link span { transition:transform .18s ease; }
+    .feature-link:hover span { transform:translate(2px,-2px); }
+    .feature-figure { position:relative; display:flex; flex-direction:column; justify-content:center; min-width:0; background:#090d11; border-left:1px solid var(--line); }
+    .feature-image { display:grid; place-items:center; min-height:340px; padding:18px; background-image:linear-gradient(rgba(142,223,240,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(142,223,240,.045) 1px,transparent 1px); background-size:32px 32px; }
+    .feature-image img { width:100%; height:100%; max-height:430px; object-fit:contain; }
+    .image-caption { display:flex; justify-content:space-between; gap:10px; padding:10px 14px; border-top:1px solid var(--line); color:var(--muted); font:600 .67rem/1.45 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .catalog-head { margin-top:62px; }
+    .project-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .card { display:flex; flex-direction:column; align-items:flex-start; min-width:0; min-height:370px; padding:20px 22px 22px; background:rgba(19,26,32,.62); border-right:1px solid var(--line); transition:background-color .18s ease; }
+    .card:last-child { border-right:0; }
+    .card:hover { background:var(--surface-raised); }
+    .card-top { display:flex; align-items:baseline; justify-content:space-between; width:100%; gap:12px; margin-bottom:18px; }
+    .card-id { color:var(--subtle); font:700 .65rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.08em; }
+    .card-type { color:var(--cyan); font:700 .61rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.065em; text-transform:uppercase; text-align:right; }
+    .card h3 { margin:0 0 10px; font-size:1.32rem; letter-spacing:-.035em; line-height:1.15; }
+    .card p { margin:0 0 18px; color:var(--muted); font-size:.9rem; }
+    .card-visual { width:100%; min-height:76px; margin:0 0 18px; padding:12px 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); }
+    .flow-label { display:block; margin-bottom:10px; color:var(--subtle); font:700 .59rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    .context-flow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); align-items:start; gap:4px; }
+    .context-node { position:relative; min-width:0; color:var(--muted); font:600 .56rem/1.35 ui-monospace,SFMono-Regular,Consolas,monospace; text-align:center; overflow-wrap:anywhere; }
+    .context-node::before { content:""; display:block; width:7px; height:7px; margin:0 auto 7px; border:1px solid var(--cyan); background:var(--bg); }
+    .context-node:not(:last-child)::after { content:""; position:absolute; width:calc(100% - 10px); top:3px; left:calc(50% + 7px); height:1px; background:var(--line); }
+    .pipeline { display:grid; grid-template-columns:.7fr 1.2fr 1.4fr; align-items:stretch; gap:5px; }
+    .pipeline span { display:grid; place-items:center; min-width:0; min-height:36px; padding:6px; border:1px solid var(--line); color:#c2cdd0; font:600 .56rem/1.35 ui-monospace,SFMono-Regular,Consolas,monospace; text-align:center; overflow-wrap:anywhere; }
+    .pipeline span:not(:last-child) { border-bottom:1px solid var(--cyan); }
+    .visual-note { display:block; margin-top:7px; color:var(--subtle); font-size:.62rem; line-height:1.4; }
+    .rule-tiles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; }
+    .rule-tiles span { display:flex; align-items:center; justify-content:center; min-height:35px; padding:5px; border:1px solid var(--line); color:#c2cdd0; font:600 .58rem/1.35 ui-monospace,SFMono-Regular,Consolas,monospace; text-align:center; }
+    .status { display:inline-flex; align-items:flex-start; gap:8px; margin-top:auto; padding-top:13px; color:#c2cbce; font-size:.74rem; line-height:1.45; border-top:1px solid var(--line-soft); width:100%; }
+    .status::before { content:""; flex:0 0 6px; width:6px; height:6px; margin-top:.48em; background:var(--warm); }
+    .catalog-notes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:24px; border-bottom:1px solid var(--line); }
+    .catalog-note { display:flex; gap:12px; padding:14px 16px 18px 0; border-right:1px solid var(--line); }
+    .catalog-note:nth-child(2) { padding-left:16px; }
+    .catalog-note:last-child { border-right:0; padding-left:16px; }
+    .catalog-note-number { color:var(--warm); font:750 .66rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .catalog-note strong { display:block; margin-bottom:3px; font-size:.82rem; }
+    .catalog-note p { margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
+    .about { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:rgba(17,23,28,.84); padding:52px 0 56px; }
+    .about-grid { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:54px; }
+    .about h2 { max-width:390px; margin:10px 0 0; font-size:clamp(1.9rem,3.5vw,2.8rem); line-height:1.08; letter-spacing:-.045em; }
+    .about-copy p { margin:0 0 14px; color:var(--muted); }
+    .workflow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:28px; border-top:1px solid var(--line); }
+    .workflow-step { position:relative; padding:15px 10px 0 0; }
+    .workflow-step:not(:last-child)::after { content:""; position:absolute; top:-3px; left:0; width:5px; height:5px; background:var(--warm); }
+    .workflow-step span { display:block; margin-bottom:6px; color:var(--warm); font:750 .62rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .workflow-step strong { font-size:.82rem; font-weight:650; }
+    .about-link { display:inline-flex; margin-top:7px; border-bottom:1px solid var(--line); padding:7px 0; font-size:.9rem; }
+    footer { padding:22px 0 30px; }
+    .footer-inner { display:flex; justify-content:space-between; gap:18px; align-items:center; color:var(--subtle); font-size:.78rem; }
+    .footer-mark { font:700 .65rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    @media(max-width:900px) {
+      .hero { grid-template-columns:1fr; gap:32px; padding-top:64px; }
+      .archive-index { max-width:620px; }
+      .featured { grid-template-columns:1fr 1fr; }
+      .feature-copy { padding:28px; }
+      .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .card:nth-child(2) { border-right:0; }
+      .card:nth-child(3) { grid-column:1/-1; border-top:1px solid var(--line); min-height:auto; }
+      .card:nth-child(3) .card-visual { max-width:460px; }
+      .about-grid { grid-template-columns:1fr; gap:24px; }
     }
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0 0 auto;
-      height: 740px;
-      pointer-events: none;
-      opacity: .42;
-      background-image:
-        linear-gradient(rgba(142, 223, 240, .045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(142, 223, 240, .045) 1px, transparent 1px),
-        radial-gradient(ellipse at 72% 12%, rgba(53, 104, 117, .22), transparent 56%);
-      background-size: 48px 48px, 48px 48px, auto;
-      mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
-      z-index: -1;
+    @media(max-width:680px) {
+      .wrap { width:min(calc(100% - 28px),var(--max)); }
+      .topbar { min-height:64px; gap:12px; flex-wrap:wrap; padding:12px 0; }
+      .brand-name { font-size:.68rem; letter-spacing:.08em; }
+      .brand-mark { width:30px; height:30px; }
+      .navlinks { width:100%; justify-content:space-between; gap:12px; font-size:.8rem; padding:4px 0 2px; }
+      .hero { padding:48px 0 46px; }
+      h1 { font-size:clamp(2.65rem,12vw,4.15rem); }
+      .section { padding-bottom:48px; }
+      .section-head { display:block; }
+      .section-head p { margin-top:12px; }
+      .featured { grid-template-columns:1fr; }
+      .feature-copy { padding:24px; }
+      .feature-figure { border-left:0; border-top:1px solid var(--line); }
+      .feature-image { min-height:250px; padding:12px; }
+      .image-caption { flex-wrap:wrap; }
+      .project-grid { grid-template-columns:1fr; }
+      .card,.card:nth-child(2),.card:nth-child(3) { grid-column:auto; border-right:0; border-top:1px solid var(--line); min-height:auto; padding:20px 18px; }
+      .card:first-child { border-top:0; }
+      .card-visual { max-width:520px; }
+      .catalog-notes { grid-template-columns:1fr; }
+      .catalog-note,.catalog-note:nth-child(2),.catalog-note:last-child { padding:13px 0; border-right:0; border-bottom:1px solid var(--line-soft); }
+      .catalog-note:last-child { border-bottom:0; }
+      .workflow { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:16px; }
+      .footer-inner { align-items:flex-start; flex-direction:column; }
     }
-    a { color: var(--cyan); text-decoration: none; }
-    a:hover { color: #c6f4fb; }
-    a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; border-radius: 3px; }
-    img { display: block; max-width: 100%; }
-    .wrap { width: min(calc(100% - 44px), var(--max)); margin: 0 auto; }
-    .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 10; padding: 8px 12px; background: var(--text); color: var(--bg); }
-    .skip-link:focus { left: 12px; }
-    header { border-bottom: 1px solid var(--line-soft); background: rgba(12, 16, 20, .82); }
-    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--text); }
-    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--cyan); color: var(--cyan); font-size: .72rem; font-weight: 800; letter-spacing: -.04em; }
-    .brand-name { font-size: .83rem; font-weight: 750; letter-spacing: .13em; }
-    .navlinks { display: flex; align-items: center; gap: 24px; font-size: .9rem; color: var(--muted); }
-    .navlinks a { color: var(--muted); }
-    .navlinks a:hover { color: var(--text); }
-    .eyebrow { color: var(--cyan); font: 750 .72rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .15em; text-transform: uppercase; }
-    .hero { padding: 86px 0 70px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(250px, .7fr); align-items: end; gap: 48px; }
-    h1 { margin: 18px 0 22px; max-width: 760px; font-size: clamp(2.7rem, 6.4vw, 5.5rem); line-height: .99; letter-spacing: -.065em; font-weight: 760; }
-    h1 em { color: var(--warm); font-style: normal; }
-    .lead { max-width: 680px; margin: 0; color: #c0cbd0; font-size: clamp(1.03rem, 1.5vw, 1.18rem); line-height: 1.75; }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 27px; }
-    .text-tag { border: 1px solid var(--line); border-radius: 4px; padding: 5px 9px; color: #c2ccd0; font: 650 .68rem/1.3 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .05em; }
-    .index-panel { position: relative; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(24, 33, 41, .94), rgba(17, 23, 28, .95)); padding: 22px; }
-    .index-panel::before { content: ""; position: absolute; width: 30px; height: 3px; top: -1px; left: 22px; background: var(--warm); }
-    .panel-head { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; margin-bottom: 4px; border-bottom: 1px solid var(--line-soft); font: 700 .68rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .11em; color: var(--muted); }
-    .index-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line-soft); }
-    .index-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .index-value { font-size: 1.65rem; line-height: 1.1; letter-spacing: -.04em; }
-    .index-label { text-align: right; max-width: 132px; color: var(--muted); font-size: .77rem; line-height: 1.35; }
-    .section { padding: 24px 0 66px; }
-    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 19px; margin-bottom: 22px; border-bottom: 1px solid var(--line); }
-    .section-head h2 { margin: 7px 0 0; font-size: clamp(1.8rem, 3.1vw, 2.6rem); line-height: 1.08; letter-spacing: -.045em; }
-    .section-head p { max-width: 410px; margin: 0; color: var(--muted); font-size: .92rem; }
-    .featured { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 0; overflow: hidden; border: 1px solid #46545b; background: var(--surface); }
-    .feature-copy { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(24px, 4vw, 42px); }
-    .case-id { color: var(--warm); font: 750 .7rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .13em; text-transform: uppercase; }
-    .featured h3 { max-width: 570px; margin: 14px 0 14px; font-size: clamp(1.8rem, 3.4vw, 3rem); line-height: 1.06; letter-spacing: -.05em; }
-    .featured p { max-width: 510px; margin: 0 0 18px; color: var(--muted); }
-    .feature-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 25px; }
-    .feature-meta span { border: 1px solid var(--line); padding: 4px 8px; color: #cad1d0; font-size: .72rem; }
-    .feature-link { display: inline-flex; align-items: center; gap: 12px; margin-top: auto; padding: 10px 0; border-bottom: 1px solid var(--cyan); font-weight: 700; }
-    .feature-image { position: relative; min-height: 340px; background: #090c10; border-left: 1px solid var(--line); }
-    .feature-image img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; object-position: center; opacity: .92; }
-    .image-caption { position: absolute; right: 12px; bottom: 12px; max-width: calc(100% - 24px); padding: 5px 8px; background: rgba(10, 14, 18, .88); border: 1px solid rgba(142, 223, 240, .22); color: #d7dddf; font-size: .68rem; }
-    .catalog-head { margin-top: 58px; }
-    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .card { position: relative; display: flex; flex-direction: column; align-items: flex-start; min-height: 255px; padding: 22px; border: 1px solid var(--line); background: rgba(19, 26, 32, .88); transition: border-color .18s ease, background-color .18s ease, transform .18s ease; }
-    .card:hover { border-color: #55717b; background: var(--surface-raised); transform: translateY(-2px); }
-    .card-top { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 14px; margin-bottom: 24px; }
-    .card-id { color: var(--subtle); font: 700 .69rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; }
-    .card-type { color: var(--cyan); font: 700 .63rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; text-align: right; }
-    .card h3 { margin: 0 0 10px; font-size: 1.35rem; letter-spacing: -.035em; line-height: 1.15; }
-    .card p { margin: 0 0 20px; color: var(--muted); font-size: .91rem; }
-    .status { display: inline-flex; align-items: flex-start; gap: 8px; margin-top: auto; padding-top: 12px; color: #bdc7c9; font-size: .74rem; line-height: 1.45; border-top: 1px solid var(--line-soft); width: 100%; }
-    .status::before { content: ""; flex: 0 0 6px; width: 6px; height: 6px; margin-top: .42em; border-radius: 50%; background: var(--status-dot); }
-    .about { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(17, 23, 28, .75); padding: 48px 0 52px; }
-    .about-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 54px; }
-    .about h2 { max-width: 390px; margin: 10px 0 0; font-size: clamp(1.8rem, 3.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.045em; }
-    .about-copy p { margin: 0 0 14px; color: var(--muted); }
-    .workflow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); margin-top: 27px; }
-    .workflow-step { padding: 15px 12px 0 0; }
-    .workflow-step span { display: block; margin-bottom: 6px; color: var(--warm); font: 750 .68rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; }
-    .workflow-step strong { font-size: .82rem; font-weight: 650; }
-    .about-link { display: inline-flex; margin-top: 7px; border-bottom: 1px solid var(--line); padding: 7px 0; font-size: .9rem; }
-    footer { padding: 22px 0 30px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 18px; align-items: center; color: var(--subtle); font-size: .78rem; }
-    .footer-mark { font: 700 .66rem/1.4 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .1em; }
-    @media(max-width: 850px) {
-      .hero { grid-template-columns: 1fr; gap: 32px; padding-top: 66px; }
-      .index-panel { max-width: 560px; }
-      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .featured { grid-template-columns: 1fr; }
-      .feature-image { border-left: 0; border-top: 1px solid var(--line); min-height: 270px; }
-      .feature-image img { min-height: 270px; max-height: 450px; }
-      .about-grid { grid-template-columns: 1fr; gap: 22px; }
-    }
-    @media(max-width: 560px) {
-      .wrap { width: min(calc(100% - 28px), var(--max)); }
-      nav { min-height: 64px; gap: 12px; flex-wrap: wrap; padding: 12px 0; }
-      .brand-name { font-size: .7rem; letter-spacing: .09em; }
-      .brand-mark { width: 30px; height: 30px; }
-      .navlinks { width: 100%; justify-content: space-between; gap: 12px; font-size: .78rem; padding-bottom: 2px; }
-      .hero { padding: 52px 0 48px; }
-      h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
-      .section { padding-bottom: 50px; }
-      .section-head { display: block; }
-      .section-head p { margin-top: 12px; }
-      .project-grid { grid-template-columns: 1fr; }
-      .card { min-height: 220px; }
-      .feature-copy { padding: 24px; }
-      .feature-image, .feature-image img { min-height: 230px; }
-      .workflow { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 16px; }
-      .footer-inner { align-items: flex-start; flex-direction: column; }
-    }
-    @media(prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .card { transition: none; }
-      .card:hover { transform: none; }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .card,.feature-link span { transition:none; }
+      .feature-link:hover span { transform:none; }
     }
   </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти к содержимому</a>
-  <header>
-    <div class="wrap">
-      <nav aria-label="Основная навигация">
-        <a class="brand" href="#top" aria-label="Portfolio — начало страницы"><span class="brand-mark">PA</span><span class="brand-name">PORTFOLIO / PERSONAL ARCHIVE</span></a>
-        <div class="navlinks"><a href="#projects">Каталог</a><a href="#about">Принципы</a><a href="https://github.com/arthurpyshniy-design">GitHub ↗</a></div>
-      </nav>
+  <header class="site-header">
+    <div class="wrap topbar">
+      <a class="brand" href="#top" aria-label="Portfolio — начало страницы"><span class="brand-mark" aria-hidden="true">PA</span><span class="brand-name">PORTFOLIO / PERSONAL ARCHIVE</span></a>
+      <nav class="navlinks" aria-label="Основная навигация"><a href="#projects">Каталог</a><a href="#about">Принципы</a><a class="github-link" href="https://github.com/arthurpyshniy-design">GitHub ↗</a></nav>
     </div>
   </header>
   <main id="main">
     <div class="wrap">
       <section class="hero" id="top" aria-labelledby="hero-title">
-        <div>
+        <div class="hero-copy">
           <div class="eyebrow">Личный архив / Индекс проектов</div>
           <h1 id="hero-title">Разные проекты.<br><em>Один след решений.</em></h1>
-          <p class="lead">Инженерия, программирование, дизайн и творческие системы. Здесь важен не только финальный результат, но и то, как он появился: задача, ограничения, выбранный подход, проверка и выводы.</p>
+          <p class="lead">Инженерия, программирование, дизайн, исследования и творческие системы. Здесь важны не только результаты, но и путь к ним: задача, ограничения, выбор, проверка и выводы.</p>
           <div class="hero-tags" aria-label="Направления проектов"><span class="text-tag">ENGINEERING</span><span class="text-tag">SOFTWARE</span><span class="text-tag">DESIGN</span><span class="text-tag">CREATIVE SYSTEMS</span></div>
         </div>
-        <aside class="index-panel" aria-label="Сводка архива">
-          <div class="panel-head"><span>ARCHIVE INDEX</span><span>SITE / v1.0</span></div>
-          <div class="index-row"><span class="index-value">04</span><span class="index-label">проекта в каталоге</span></div>
-          <div class="index-row"><span class="index-value">02</span><span class="index-label">подробных публичных кейса</span></div>
-          <div class="index-row"><span class="index-value">∞</span><span class="index-label">пространство для будущих направлений</span></div>
+        <aside class="archive-index" aria-label="Индекс архива">
+          <div class="index-head"><span>ARCHIVE INDEX</span><span>SITE / v1.1</span></div>
+          <div class="index-row"><span class="index-value">04</span><span class="index-label">записи в каталоге</span></div>
+          <div class="index-row"><span class="index-value">02</span><span class="index-label">опубликованных подробных кейса</span></div>
+          <div class="index-row"><span class="index-value">01</span><span class="index-label">избранный проект на первом плане</span></div>
+          <div class="index-foot">INDEX / IN PROGRESS</div>
         </aside>
       </section>
-
       <section class="section" id="projects" aria-labelledby="projects-title">
-        <div class="section-head"><div><div class="eyebrow">01 / Выбранная работа</div><h2 id="projects-title">Сначала — кейс с процессом</h2></div><p>Один проект разобран подробно. Остальные карточки отмечают текущий статус без преувеличения готовности.</p></div>
-
+        <div class="section-head">
+          <div class="section-title-wrap"><span class="section-index">01 / SELECTED WORK</span><h2 id="projects-title">Избранный кейс</h2></div>
+          <p>Подробная запись показывает визуальные решения, ограничения платформы и итерации. Остальные материалы пока остаются краткими записями архива.</p>
+        </div>
+        <div class="feature-label"><span>CASE 001</span><span>WEARABLE INTERFACE / VISUAL STUDY</span></div>
         <article class="featured">
           <div class="feature-copy">
-            <div class="case-id">CASE 001 / WEARABLE INTERFACE</div>
-            <h3>Циферблат Xiaomi Watch S5 в эстетике Disco Elysium</h3>
-            <p>Визуальная концепция для круглого дисплея 480 × 480 px. Композиция в Figma и отдельная архивная метка, собранная в Krita, с учётом ограничений платформы.</p>
+            <div class="case-id">XIAOMI WATCH S5 / MM6</div>
+            <h3>Циферблат в эстетике Disco Elysium</h3>
+            <p>Визуальная концепция для круглого дисплея 480 × 480 px. Композиция исследует баланс между портретом, временем и служебной архивной меткой — с учётом ограничений платформы.</p>
             <div class="feature-meta"><span>480 × 480 px</span><span>Figma + Krita</span><span>Фан-концепт</span></div>
             <a class="feature-link" href="xiaomi-watch-s5.html">Открыть кейс <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="feature-image"><img src="assets/watchface/08-final-composition.jpg" alt="Финальная визуальная композиция циферблата в Figma с портретом и архивной бумажной меткой"><span class="image-caption">Финальный макет в Figma · не фото часов</span></div>
+          <div class="feature-figure">
+            <div class="feature-image"><img src="assets/watchface/08-final-composition.jpg" alt="Финальная визуальная композиция циферблата в редакторе Figma, с портретом и архивной бумажной меткой"></div>
+            <div class="image-caption"><span>Финальная композиция</span><span>Figma · не фото часов</span></div>
+          </div>
         </article>
-
-        <div class="section-head catalog-head"><div><div class="eyebrow">02 / Остальные записи</div><h2>Каталог проектов</h2></div><p>Проекты остаются в собственных репозиториях или локальных папках. Сайт связывает их, не смешивая исходники.</p></div>
+        <div class="section-head catalog-head">
+          <div class="section-title-wrap"><span class="section-index">02 / PROJECT REGISTER</span><h2>Каталог проектов</h2></div>
+          <p>Каждая запись сохраняет собственный контекст. Визуальные схемы ниже поясняют предмет проекта и не подменяют реальные доказательства или результаты.</p>
+        </div>
         <div class="project-grid">
           <article class="card">
             <div class="card-top"><span class="card-id">ENTRY / 002</span><span class="card-type">Software · Local-first</span></div>
             <h3>GlyphDeck</h3>
-            <p>Персональная система для организации контекста, проектов и восстановления рабочего состояния. Концепция связывает захват информации, контекст, связи и возвращение к действию.</p>
+            <p>Персональная система управления контекстом. Помогает связывать информацию, проекты и решения, чтобы легче возвращаться к незавершённой работе.</p>
+            <div class="card-visual" role="img" aria-label="Концептуальный цикл GlyphDeck: Capture, Context, Connect, Resurface, Resume or Act">
+              <span class="flow-label">CONTEXT RECOVERY / CORE LOOP</span>
+              <div class="context-flow"><span class="context-node">CAPTURE</span><span class="context-node">CONTEXT</span><span class="context-node">CONNECT</span><span class="context-node">RESURFACE</span><span class="context-node">RESUME / ACT</span></div>
+            </div>
             <span class="status">В разработке · исходники приватные</span>
           </article>
           <article class="card">
             <div class="card-top"><span class="card-id">ENTRY / 003</span><span class="card-type">Signal processing</span></div>
             <h3>FiberWatch</h3>
-            <p>Командный проект по анализу данных распределённых оптоволоконных сенсоров. Публичное описание будет расширено после проверки материалов и разрешений.</p>
+            <p>Командный проект по анализу температурных и виброакустических данных распределённых волоконно-оптических датчиков.</p>
+            <div class="card-visual" role="img" aria-label="Схема обработки данных FiberWatch: CSV, допустимые значения, сравнение соседних измерений">
+              <span class="flow-label">DATA CHECK / SCHEMATIC, NOT MEASURED DATA</span>
+              <div class="pipeline"><span>CSV</span><span>VALID VALUES</span><span>NEIGHBOR CHECK</span></div>
+              <span class="visual-note">Схематичная последовательность; не график измерений.</span>
+            </div>
             <span class="status">Материалы пока локальные</span>
           </article>
           <article class="card">
             <div class="card-top"><span class="card-id">ENTRY / 004</span><span class="card-type">Creative systems · TTRPG</span></div>
             <h3>Кабанан / NRI</h3>
-            <p>Авторская работа над ролевой системой, правилами и структурой игровых материалов. Это отдельное творческое направление, не связанное с инженерными кейсами.</p>
-            <span class="status">Отдельное направление</span>
+            <p>Авторская ролевая система: игровые механики, правила, последствия решений и документация для игрока и ведущего.</p>
+            <div class="card-visual" role="img" aria-label="Основные элементы разработки ролевой системы: механики, последствия и документация">
+              <span class="flow-label">SYSTEM COMPONENTS</span>
+              <div class="rule-tiles"><span>RULES</span><span>CHOICES</span><span>CONSEQUENCES</span></div>
+            </div>
+            <span class="status">Долгосрочное творческое направление</span>
           </article>
+        </div>
+        <div class="catalog-notes" aria-label="Принципы чтения каталога">
+          <div class="catalog-note"><span class="catalog-note-number">A</span><div><strong>Запись — не доказательство</strong><p>Краткая карточка описывает проект; подробный кейс показывает процесс и подтверждения.</p></div></div>
+          <div class="catalog-note"><span class="catalog-note-number">B</span><div><strong>Статус всегда текстовый</strong><p>Готовность указана словами. Цвет и форма остаются дополнительными подсказками.</p></div></div>
+          <div class="catalog-note"><span class="catalog-note-number">C</span><div><strong>Приватность учитывается</strong><p>Локальные и командные материалы не публикуются без проверки разрешений.</p></div></div>
         </div>
       </section>
     </div>
-
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="wrap about-grid">
-        <div><div class="eyebrow">03 / Метод</div><h2 id="about-title">Не просто галерея. Архив решений.</h2></div>
+        <div><div class="eyebrow">03 / METHOD</div><h2 id="about-title">Не просто галерея. Архив решений.</h2></div>
         <div class="about-copy">
-          <p>Портфолио объединяет проекты разных тематик и масштабов. У каждого — собственный контекст, статус и материалы; общий формат документации помогает объяснить не только, что получилось, но и почему были выбраны именно эти решения.</p>
-          <p>В кейсах разделяются подтверждённый результат, ограничения и планы. Личные данные, приватный код и командные материалы публикуются только при наличии разрешения.</p>
-          <div class="workflow" aria-label="Структура инженерного и творческого кейса">
-            <div class="workflow-step"><span>01 / FRAME</span><strong>Задача</strong></div>
-            <div class="workflow-step"><span>02 / DECIDE</span><strong>Подход</strong></div>
-            <div class="workflow-step"><span>03 / CHECK</span><strong>Проверка</strong></div>
-            <div class="workflow-step"><span>04 / LEARN</span><strong>Выводы</strong></div>
+          <p>Портфолио объединяет проекты разных тематик и масштабов. Общий формат помогает объяснить не только, что получилось, но и почему были выбраны именно эти решения. При этом форма подачи зависит от задачи: инженерному кейсу нужны данные и проверки, творческому — композиция и итерации, исследованию — источники и аргументы.</p>
+          <p>В каждом подробном кейсе различаются подтверждённый результат, ограничения и планы. Референсы влияют на способы объяснения проекта, а не превращают сайт в копию чужого интерфейса.</p>
+          <div class="workflow" aria-label="Структура кейса">
+            <div class="workflow-step"><span>01 / FRAME</span><strong>Задача</strong></div><div class="workflow-step"><span>02 / DECIDE</span><strong>Подход</strong></div><div class="workflow-step"><span>03 / CHECK</span><strong>Проверка</strong></div><div class="workflow-step"><span>04 / LEARN</span><strong>Выводы</strong></div>
           </div>
           <a class="about-link" href="portfolio-case.html">Как создавался сам сайт ↗</a>
         </div>
