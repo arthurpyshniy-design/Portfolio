@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Кейс о создании визуальной концепции циферблата для Xiaomi Watch S5 / MM6: ограничения круглого дисплея, композиция в Figma и изготовление архивной метки в Krita.">
+  <title>Disco Elysium Watchface — кейс проекта</title>
+  <style>
+    :root { color-scheme: dark; --bg:#101218; --panel:#191d27; --text:#eef1f7; --muted:#a4adbf; --line:#303746; --accent:#8edff0; --warm:#c8a17e; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif; }
+    a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
+    img { display:block; max-width:100%; height:auto; }
+    .wrap { width:min(100% - 40px, 1060px); margin:auto; }
+    header { padding:22px 0; border-bottom:1px solid var(--line); }
+    nav { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+    .brand { color:var(--text); font-weight:750; letter-spacing:.08em; font-size:.86rem; }
+    .navlinks { display:flex; gap:18px; color:var(--muted); font-size:.92rem; }
+    main { padding:54px 0 72px; }
+    .eyebrow { color:var(--accent); font-size:.76rem; font-weight:750; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { font-size:clamp(2.25rem,6vw,4.4rem); line-height:1.04; letter-spacing:-.055em; margin:16px 0; max-width:900px; }
+    h2 { font-size:clamp(1.4rem,3.3vw,2rem); line-height:1.2; letter-spacing:-.025em; margin:0 0 14px; }
+    h3 { font-size:1.05rem; line-height:1.35; margin:0 0 8px; }
+    p { margin:0 0 14px; } .muted { color:var(--muted); }
+    .lead { color:#c2cad8; max-width:790px; font-size:1.12rem; }
+    .status { display:inline-block; border:1px solid #43515f; border-radius:999px; padding:5px 11px; color:#c7d0dc; font-size:.8rem; margin:12px 0 24px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr); gap:22px; align-items:start; margin:8px 0 62px; }
+    .hero-image { border:1px solid var(--line); background:#171a20; border-radius:16px; overflow:hidden; padding:12px; }
+    .hero-image img { width:100%; border-radius:8px; }
+    .caption { color:var(--muted); font-size:.82rem; margin-top:9px; }
+    .facts { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .fact,.panel,.frame-card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:17px; }
+    .fact .label { display:block; color:var(--muted); font-size:.77rem; margin-bottom:4px; }
+    .section { padding:0 0 52px; scroll-margin-top:24px; }
+    .section-head { max-width:790px; margin-bottom:22px; }
+    .section-head p { color:var(--muted); }
+    .two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .three { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    ul,ol { padding-left:22px; margin:8px 0 0; } li { color:#c3cad6; margin:0 0 8px; }
+    .number { color:var(--warm); font-size:.75rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase; margin-bottom:9px; }
+    .gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .frame-card { padding:12px; overflow:hidden; }
+    .frame-card img { width:100%; border-radius:8px; background:#0b0d11; }
+    .frame-card .caption { margin:10px 3px 2px; }
+    .note { border-left:3px solid var(--accent); padding:5px 0 5px 16px; color:#c5cedb; }
+    .notice { background:#211d1a; border:1px solid #5e4c3b; border-radius:14px; padding:18px; }
+    .notice h3 { color:#e4c09b; }
+    .links { display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; }
+    .link { display:inline-block; border:1px solid #3d5360; border-radius:9px; padding:9px 13px; }
+    footer { border-top:1px solid var(--line); padding:22px 0 34px; color:var(--muted); font-size:.88rem; }
+    code { color:#cbe9f0; background:#252b35; padding:2px 5px; border-radius:5px; }
+    @media(max-width:760px) { .wrap{width:min(100% - 28px,1060px)} main{padding:38px 0 52px} .hero-grid{grid-template-columns:1fr;gap:14px} .three{grid-template-columns:1fr} }
+    @media(max-width:560px) { .gallery,.two{grid-template-columns:1fr} .facts{grid-template-columns:1fr 1fr} .navlinks{gap:12px} h1{font-size:2.35rem} }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><nav aria-label="Основная навигация"><a class="brand" href="index.html">PORTFOLIO / PROJECT ARCHIVE</a><div class="navlinks"><a href="index.html#projects">Проекты</a><a href="index.html#about">О портфолио</a><a href="https://github.com/arthurpyshniy-design/Portfolio">Исходный код</a></div></nav></div></header>
+  <main class="wrap">
+    <section>
+      <div class="eyebrow">Кейс 001 / Wearable UI / Личный дизайн-проект</div>
+      <h1>Disco Elysium-inspired watchface</h1>
+      <p class="lead">Визуальная концепция циферблата для Xiaomi Watch S5 / MM6. Задача — собрать выразительную композицию на квадратном макете 480 × 480 px, которая выдерживает круглую область отображения и не притворяется интерфейсом с несуществующими динамическими полями.</p>
+      <span class="status">Визуальная композиция принята автором · тест на устройстве отдельно не задокументирован в приложенном архиве</span>
+      <div class="hero-grid">
+        <div class="hero-image"><img src="assets/watchface/08-final-composition.jpg" alt="Кадр Figma с финальной визуальной композицией циферблата и архивной бумажной меткой"><p class="caption">Финальная композиция в Figma. Это кадр из редактора, а не фотография циферблата на реальных часах.</p></div>
+        <div class="facts">
+          <div class="fact"><span class="label">Устройство</span><strong>Xiaomi Watch S5 / MM6</strong></div>
+          <div class="fact"><span class="label">Макет</span><strong>480 × 480 px</strong></div>
+          <div class="fact"><span class="label">Инструменты</span><strong>Figma + Krita</strong></div>
+          <div class="fact"><span class="label">Тип работы</span><strong>Визуальный концепт</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="brief">
+      <div class="section-head"><div class="eyebrow">01 / Задача и ограничения</div><h2>Сначала устройство, затем декор</h2><p>Циферблат проектировался с учётом реального холста и круглой границы дисплея. Основная иллюстрация должна оставаться визуальным центром, а вспомогательные элементы — помогать иерархии, а не перегружать экран.</p></div>
+      <div class="three">
+        <div class="panel"><div class="number">Ограничение 01</div><h3>Круглый экран</h3><p class="muted">Рабочее изображение квадратное, но по краям круглой области детали могут обрезаться. Поэтому круглая направляющая использовалась как постоянная проверка композиции.</p></div>
+        <div class="panel"><div class="number">Ограничение 02</div><h3>Системные поля</h3><p class="muted">Платформа предоставляет ограниченный набор динамических полей. Время и другие обновляемые сведения нельзя надёжно имитировать текстом, запечённым в фоновую картинку.</p></div>
+        <div class="panel"><div class="number">Ограничение 03</div><h3>Читаемость в малом размере</h3><p class="muted">Дополнительные подписи и маркеры должны сохранять контраст и не перекрывать значимые части портрета после круглой обрезки.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="section-head"><div class="eyebrow">02 / Процесс</div><h2>Восемь кадров вместо 160 скриншотов</h2><p>Из визуального архива отобраны ключевые состояния, которые объясняют ход работы: создание холста, проверка обрезки, поиск расположения времени, работа с референсом и создание собственного элемента. Это выборка процесса, а не полный журнал всех микровариантов.</p></div>
+      <div class="gallery">
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/01-frame.jpg" alt="Первый пустой фрейм Figma с размером 480 на 480 пикселей"><figcaption><div class="number">Кадр 01 · Основа</div><strong>Создание фрейма 480 × 480</strong><p class="caption">Размер холста зафиксирован до начала композиции, чтобы дальнейшие решения опирались на формат устройства.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/02-round-guide.jpg" alt="Круглая направляющая поверх квадратного холста Figma"><figcaption><div class="number">Кадр 02 · Обрезка</div><strong>Проверка круглой области</strong><p class="caption">Направляющая показывает, какие края изображения окажутся за пределами круглого дисплея.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/03-time-placement.jpg" alt="Эксперимент с размещением цифрового времени поверх изображения"><figcaption><div class="number">Кадр 03 · Иерархия</div><strong>Проба системного времени</strong><p class="caption">Это экспериментальный вариант размещения, а не заявление о финальном наборе полей. Макет отделяет фон от системно управляемой информации.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/04-game-reference.jpg" alt="Отдельная страница Figma с игровым референсом Disco Elysium"><figcaption><div class="number">Кадр 04 · Референс</div><strong>Изучение визуального языка</strong><p class="caption">Игровой кадр использовался как материал для исследования художественной подачи. Он не является самостоятельным макетом циферблата.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/05-paper-base.jpg" alt="Базовая неправильная форма архивной бумажной метки на прозрачном холсте Krita"><figcaption><div class="number">Кадр 05 · Материал</div><strong>Создание бумажной метки</strong><p class="caption">В Krita подготовлена отдельная форма, которую можно дорабатывать независимо от общей композиции Figma.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/06-texture-problem.jpg" alt="Неудачная текстура архивной метки с тёмным артефактом и ореолом за краями формы"><figcaption><div class="number">Кадр 06 · Неудачная итерация</div><strong>Текстура дала дефект</strong><p class="caption">Тёмный след и ореол выходили за границу бумаги. Эффект пришлось ограничить формой и ослабить заметные мазки вместо того, чтобы сохранять дефект как декор.</p></figcaption></figure>
+        <figure class="frame-card"><img loading="lazy" src="assets/watchface/07-label-typography.jpg" alt="Проверка текста R.C.M. и FILE № 4217-A в текстовом блоке архивной метки Krita"><figcaption><div class="number">Кадр 07 · Типографика</div><strong>Исправление переноса строки</strong><p class="caption">Номер дела переносился из-за узкого текстового блока. Корректировка ширины и размера позволила собрать маркировку в более читаемую композицию.</p></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section" id="decisions">
+      <div class="section-head"><div class="eyebrow">03 / Принятые решения</div><h2>Один выразительный материальный элемент</h2></div>
+      <div class="two">
+        <div class="panel"><h3>Разделение инструментов</h3><p class="muted">Figma использовалась для компоновки, иерархии и проверки круглой обрезки. Krita — для растрового материала, фактуры и типографики отдельной метки. Экспортированный PNG с альфа-каналом возвращался в композицию.</p></div>
+        <div class="panel"><h3>Меньше декоративного шума</h3><p class="muted">Вместо раннего универсального блока CASE NOTE появился один бумажный фрагмент с маркировкой R.C.M. / FILE № 4217-A. После достижения приемлемой читаемости дальнейшие украшения не считались обязательными.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="result">
+      <div class="section-head"><div class="eyebrow">04 / Результат и проверка</div><h2>Что получилось — и что не следует преувеличивать</h2></div>
+      <ul>
+        <li>Сформирована визуальная композиция с доминирующим портретом, нижней служебной полосой и отдельной архивной меткой.</li>
+        <li>Рабочая метка создана в Krita, экспортирована в PNG и интегрирована в Figma.</li>
+        <li>По истории проекта автор принял текущую композицию и счёл читаемость и кадрирование приемлемыми.</li>
+        <li>В предоставленном архиве нет отдельной фотографии циферблата на реальном экране часов. Поэтому эта страница показывает визуальное решение в Figma, а не независимо подтверждённый тест на устройстве.</li>
+        <li>Проект не включает прошивку, разработку watchface-движка или доказательство работы с динамическими данными за пределами возможностей редактора циферблатов.</li>
+      </ul>
+      <p class="note">Статус: текущая визуальная композиция закрыта автором. Возобновлять работу имеет смысл при конкретной проблеме читаемости, кадрирования или ограничениях платформы, а не ради бесконечного добавления декора.</p>
+    </section>
+
+    <section class="section" id="contribution">
+      <div class="section-head"><div class="eyebrow">05 / Вклад и инструменты</div><h2>Что демонстрирует этот кейс</h2></div>
+      <div class="two">
+        <div class="panel"><h3>Инструменты и навыки</h3><p class="muted">Figma · Krita 5.3.4 · композиция для круглого дисплея · информационная иерархия · растровая фактура · работа со слоями и прозрачным PNG · исправление типографики по результатам визуальной проверки.</p></div>
+        <div class="panel"><h3>Роль ИИ</h3><p class="muted">ИИ использовался как консультативный инструмент для обсуждения дизайна и поиска способов исправить проблемы. Направление композиции, изменения в Figma/Krita и принятие итогового варианта оставались под управлением автора.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="limitations">
+      <div class="notice"><h3>Авторские права и статус концепта</h3><p>Это неофициальный фанатский дизайн-концепт, не связанный с разработчиками или правообладателями Disco Elysium. Использованная иллюстрация и игровые материалы не являются оригинальными активами автора кейса; права на них принадлежат соответствующим правообладателям. Для коммерческого продвижения или использования в качестве клиентского продукта этот кейс следует заменить вариантом с собственной или лицензированной графикой. Само указание правообладателя не заменяет разрешение на использование.</p></div>
+      <div class="links"><a class="link" href="index.html#projects">← Вернуться к проектам</a><a class="link" href="https://github.com/arthurpyshniy-design/Portfolio">Репозиторий портфолио ↗</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap">Portfolio / Case 001 · Xiaomi Watch S5 / MM6 · Неофициальный фанатский концепт.</div></footer>
+</body>
+</html>
