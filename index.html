@@ -126,10 +126,10 @@
     }
     @media(max-width: 560px) {
       .wrap { width: min(calc(100% - 28px), var(--max)); }
-      nav { min-height: 64px; gap: 12px; }
+      nav { min-height: 64px; gap: 12px; flex-wrap: wrap; padding: 12px 0; }
       .brand-name { font-size: .7rem; letter-spacing: .09em; }
       .brand-mark { width: 30px; height: 30px; }
-      .navlinks { gap: 13px; font-size: .78rem; }
+      .navlinks { width: 100%; justify-content: space-between; gap: 12px; font-size: .78rem; padding-bottom: 2px; }
       .hero { padding: 52px 0 48px; }
       h1 { font-size: clamp(2.55rem, 12vw, 4rem); }
       .section { padding-bottom: 50px; }
