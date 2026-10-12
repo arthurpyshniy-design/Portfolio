@@ -3,132 +3,303 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Кейс: создание личного сайта-портфолио на HTML и CSS с публикацией через GitHub Pages.">
-  <title>Кейс — сайт Portfolio</title>
+  <meta name="description" content="Кейс о создании и сопровождении статического портфолио на HTML и CSS: информационная архитектура, визуальная система, GitHub Pages, итерации и ограничения проверки.">
+  <meta name="theme-color" content="#0c1014">
+  <title>Portfolio — кейс о создании сайта</title>
   <style>
-    :root { color-scheme: dark; --bg:#0c1014; --panel:#131a20; --text:#edf0ec; --muted:#a1adb0; --subtle:#718087; --line:#334149; --accent:#8edff0; --warm:#d6ad89; }
+    :root {
+      color-scheme:dark;
+      --bg:#0c1014; --surface:#131a20; --surface-raised:#182129;
+      --text:#edf0ec; --muted:#aeb9bc; --subtle:#89979d;
+      --line:#334149; --line-soft:rgba(151,178,185,.17);
+      --cyan:#8edff0; --warm:#d6ad89; --max:1120px;
+    }
     * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif; }
-    a { color:var(--accent); text-decoration:none; } a:hover { text-decoration:underline; }
-    .wrap { width:min(100% - 40px, 920px); margin:auto; }
-    header { padding:22px 0; border-bottom:1px solid var(--line); }
-    nav { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
-    .brand { display:inline-flex; align-items:center; gap:10px; color:var(--text); font-weight:750; letter-spacing:.08em; font-size:.82rem; text-decoration:none; }
-    .brand-mark { display:grid; place-items:center; width:32px; height:32px; flex:0 0 auto; border:1px solid var(--accent); color:var(--accent); font:800 .68rem/1 ui-monospace,SFMono-Regular,Consolas,monospace; }
-    .brand-name { font-size:.77rem; line-height:1.3; letter-spacing:.1em; }
-    .navlinks { display:flex; gap:18px; color:var(--muted); font-size:.92rem; }
-    main { padding:58px 0 72px; }
-    .eyebrow { color:var(--accent); font-size:.76rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
-    h1 { font-size:clamp(2.3rem,6vw,4.3rem); line-height:1.06; letter-spacing:-.05em; margin:16px 0; }
-    h2 { font-size:1.45rem; line-height:1.2; margin:0 0 12px; }
-    h3 { font-size:1.05rem; margin:0 0 8px; }
-    p { margin:0 0 14px; }
-    .lead { color:#c0c7d5; max-width:760px; font-size:1.1rem; }
-    .facts { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:30px 0 50px; }
-    .fact,.panel { background:var(--panel); border:1px solid var(--line); border-radius:2px; padding:18px; }
-    .label { color:var(--muted); font-size:.78rem; margin-bottom:5px; }
-    section { padding:0 0 34px; }
-    section p, li { color:#c2c9d7; }
-    ul,ol { padding-left:22px; margin:8px 0 0; }
-    li { margin:0 0 8px; }
-    .two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .status { display:inline-block; border:1px solid var(--line); border-radius:2px; padding:4px 10px; color:var(--muted); font-size:.8rem; margin:5px 0 20px; }
-    .note { border-left:3px solid var(--accent); padding:4px 0 4px 16px; }
-    footer { border-top:1px solid var(--line); padding:22px 0 32px; color:var(--muted); font-size:.88rem; }
-    @media(max-width:640px) { .wrap{width:min(100% - 28px,920px)} main{padding:42px 0 52px} nav{gap:12px} .brand-name{font-size:.66rem;letter-spacing:.07em} .facts,.two{grid-template-columns:1fr} .navlinks{gap:12px;font-size:.8rem} }
+    html { scroll-behavior:smooth; }
+    body { position:relative; isolation:isolate; margin:0; color:var(--text); background:var(--bg); font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; text-rendering:optimizeLegibility; }
+    body::before { content:""; position:absolute; inset:0 0 auto; height:760px; pointer-events:none; opacity:.32; background-image:linear-gradient(rgba(142,223,240,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(142,223,240,.05) 1px,transparent 1px),radial-gradient(ellipse at 76% 8%,rgba(53,104,117,.24),transparent 54%); background-size:48px 48px,48px 48px,auto; mask-image:linear-gradient(to bottom,#000 0%,transparent 94%); z-index:-1; }
+    a { color:var(--cyan); text-decoration:none; }
+    a:hover { color:#c6f4fb; }
+    a:focus-visible { outline:2px solid var(--cyan); outline-offset:4px; border-radius:2px; }
+    img,svg { display:block; max-width:100%; }
+    .wrap { width:min(calc(100% - 44px),var(--max)); margin:0 auto; }
+    .skip-link { position:absolute; left:-9999px; top:8px; z-index:10; padding:8px 12px; background:var(--text); color:var(--bg); }
+    .skip-link:focus { left:12px; }
+    .site-header { border-bottom:1px solid var(--line); background:rgba(12,16,20,.94); }
+    .topbar { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; color:var(--text); min-width:0; }
+    .brand-mark { position:relative; display:grid; place-items:center; width:34px; height:34px; flex:0 0 auto; border:1px solid var(--cyan); color:var(--cyan); font:800 .7rem/1 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:-.05em; }
+    .brand-mark::after { content:""; position:absolute; width:5px; height:5px; right:-3px; top:-3px; background:var(--warm); }
+    .brand-name { overflow-wrap:anywhere; font-size:.79rem; font-weight:750; letter-spacing:.12em; line-height:1.25; }
+    .navlinks { display:flex; align-items:center; gap:24px; font-size:.88rem; color:var(--muted); }
+    .navlinks a { color:var(--muted); }
+    .navlinks a:hover { color:var(--text); }
+    .navlinks .source-link { color:var(--cyan); border-bottom:1px solid var(--line); padding:5px 0; }
+    .eyebrow,.mono,.section-index,.case-id,.field-label,.meta-label { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .eyebrow { color:var(--cyan); font-weight:750; font-size:.69rem; line-height:1.5; letter-spacing:.13em; text-transform:uppercase; }
+    main { padding-bottom:52px; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:clamp(30px,5vw,64px); align-items:end; padding:72px 0 54px; }
+    .breadcrumbs { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 26px; color:var(--subtle); font-size:.78rem; }
+    .breadcrumbs a { color:var(--muted); border-bottom:1px solid var(--line); }
+    h1 { max-width:780px; margin:16px 0 23px; font-size:clamp(2.55rem,6.2vw,5rem); line-height:.99; letter-spacing:-.065em; font-weight:760; }
+    h1 em { color:var(--warm); font-style:normal; }
+    .lead { max-width:680px; margin:0; color:#c5ced0; font-size:clamp(1.03rem,1.5vw,1.16rem); line-height:1.75; }
+    .tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:24px; }
+    .tag { padding:5px 9px; border:1px solid var(--line); color:#c5ced0; font:650 .66rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .snapshot { position:relative; padding:20px 22px 18px; background:linear-gradient(145deg,rgba(24,33,41,.96),rgba(17,23,28,.8)); border-top:2px solid var(--warm); border-bottom:1px solid var(--line); }
+    .snapshot::before { content:""; position:absolute; top:0; right:22px; height:16px; width:1px; background:var(--warm); }
+    .snapshot-head { display:flex; justify-content:space-between; gap:12px; margin-bottom:5px; padding-bottom:14px; border-bottom:1px solid var(--line-soft); color:var(--muted); font:700 .65rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    .snapshot-row { display:grid; grid-template-columns:104px minmax(0,1fr); gap:13px; padding:12px 0; border-bottom:1px solid var(--line-soft); }
+    .snapshot-row:last-of-type { border-bottom:0; }
+    .meta-label { color:var(--subtle); font-size:.63rem; letter-spacing:.06em; text-transform:uppercase; }
+    .meta-value { font-size:.82rem; line-height:1.5; overflow-wrap:anywhere; }
+    .status-note { margin-top:13px; padding-top:12px; border-top:1px solid var(--line-soft); color:var(--muted); font-size:.78rem; }
+    .status-note strong { color:var(--warm); font-weight:650; }
+    .section { padding:32px 0 47px; border-top:1px solid var(--line); }
+    .section-head { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:34px; align-items:start; margin-bottom:24px; }
+    .section-index { display:block; margin-bottom:7px; color:var(--warm); font-size:.67rem; font-weight:750; letter-spacing:.13em; }
+    h2 { margin:0; font-size:clamp(1.75rem,3.25vw,2.65rem); line-height:1.08; letter-spacing:-.045em; }
+    .section-intro { max-width:650px; margin:0; color:var(--muted); font-size:.94rem; }
+    .two,.three { display:grid; gap:12px; }
+    .two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .panel { min-width:0; padding:20px; border:1px solid var(--line); background:rgba(19,26,32,.68); }
+    .panel h3 { margin:0 0 9px; font-size:1.03rem; letter-spacing:-.02em; }
+    .panel p { margin:0; color:var(--muted); font-size:.88rem; }
+    .panel .number { margin-bottom:12px; color:var(--warm); font:750 .65rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.1em; }
+    .list { margin:0; padding-left:20px; color:var(--muted); }
+    .list li { margin:0 0 9px; padding-left:4px; }
+    .list strong { color:var(--text); font-weight:650; }
+    code { color:#cbe9f0; background:#1a252b; padding:1px 4px; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.91em; overflow-wrap:anywhere; }
+    .architecture { display:grid; grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr); gap:12px; align-items:stretch; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:18px 0; }
+    .arch-stack { display:grid; gap:8px; }
+    .arch-node { padding:13px 14px; border:1px solid var(--line); background:var(--surface); }
+    .arch-node.primary { border-top:2px solid var(--cyan); }
+    .arch-node.secondary { border-top:2px solid var(--warm); }
+    .arch-node code { display:block; margin-bottom:4px; background:none; padding:0; color:var(--cyan); font-size:.75rem; }
+    .arch-node strong { display:block; font-size:.87rem; font-weight:650; }
+    .arch-node small { display:block; margin-top:3px; color:var(--subtle); font-size:.74rem; line-height:1.5; }
+    .arch-link { display:grid; align-content:center; gap:8px; color:var(--subtle); text-align:center; font:650 .61rem/1.4 ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .arch-link .arrow { position:relative; height:1px; background:var(--line); }
+    .arch-link .arrow::after { content:""; position:absolute; top:-3px; right:0; width:6px; height:6px; border-top:1px solid var(--cyan); border-right:1px solid var(--cyan); transform:rotate(45deg); }
+    .timeline { border-top:1px solid var(--line); }
+    .timeline-item { display:grid; grid-template-columns:145px minmax(0,1fr); gap:20px; padding:19px 0; border-bottom:1px solid var(--line-soft); }
+    .timeline-date { color:var(--warm); font:700 .65rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:.08em; }
+    .timeline-content h3 { margin:0 0 5px; font-size:1rem; }
+    .timeline-content p { margin:0; color:var(--muted); font-size:.86rem; }
+    .timeline-content a { border-bottom:1px solid var(--line); }
+    .callout { margin-top:18px; padding:17px 19px; border:1px solid var(--line); background:rgba(24,33,41,.66); }
+    .callout h3 { margin:0 0 7px; font-size:.97rem; }
+    .callout p { margin:0; color:var(--muted); font-size:.86rem; }
+    .callout strong { color:var(--text); font-weight:650; }
+    .check-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .check-item { padding:17px; border:1px solid var(--line); background:var(--surface); }
+    .check-item h3 { margin:0 0 6px; font-size:.93rem; }
+    .check-item p { margin:0; color:var(--muted); font-size:.83rem; }
+    .status-pill { display:inline-flex; align-items:center; gap:7px; color:#d7e2e2; font-size:.76rem; }
+    .status-pill::before { content:""; width:6px; height:6px; background:var(--cyan); flex:0 0 auto; }
+    .links { display:flex; flex-wrap:wrap; gap:12px 20px; margin-top:22px; }
+    .link { display:inline-block; border:1px solid #3d5360; padding:9px 13px; color:var(--cyan); font-size:.85rem; }
+    .link:hover { background:var(--surface-raised); text-decoration:none; }
+    .sources { display:grid; gap:0; margin-top:4px; border-top:1px solid var(--line); }
+    .source-row { display:grid; grid-template-columns:1fr 2fr; gap:18px; padding:13px 0; border-bottom:1px solid var(--line-soft); }
+    .source-row a { font-size:.86rem; }
+    .source-row p { margin:0; color:var(--muted); font-size:.82rem; }
+    footer { border-top:1px solid var(--line); padding:22px 0 34px; color:var(--muted); font-size:.82rem; }
+    .footer-inner { display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    @media(max-width:850px) {
+      .hero { grid-template-columns:1fr; align-items:start; }
+      .section-head { grid-template-columns:1fr; gap:12px; }
+      .three { grid-template-columns:1fr; }
+      .architecture { grid-template-columns:1fr; gap:10px; }
+      .arch-link { grid-template-columns:1fr 38px 1fr; align-items:center; }
+      .arch-link .arrow { grid-column:2; grid-row:1; }
+    }
+    @media(max-width:620px) {
+      .wrap { width:min(calc(100% - 28px),var(--max)); }
+      .topbar { padding:12px 0; align-items:flex-start; }
+      .navlinks { gap:12px; flex-wrap:wrap; justify-content:flex-end; font-size:.78rem; }
+      .brand-name { font-size:.65rem; letter-spacing:.07em; }
+      .hero { padding:44px 0 38px; }
+      h1 { font-size:clamp(2.35rem,11vw,3.8rem); }
+      .two,.check-list { grid-template-columns:1fr; }
+      .snapshot-row { grid-template-columns:84px minmax(0,1fr); }
+      .section { padding:26px 0 36px; }
+      .timeline-item { grid-template-columns:1fr; gap:6px; }
+      .source-row { grid-template-columns:1fr; gap:4px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
 <body>
-  <header><div class="wrap"><nav aria-label="Основная навигация"><a class="brand" href="index.html" aria-label="Portfolio — главная"><span class="brand-mark" aria-hidden="true">PA</span><span class="brand-name">PORTFOLIO / PERSONAL ARCHIVE</span></a><div class="navlinks"><a href="index.html#projects">Проекты</a><a href="index.html#about">О портфолио</a><a href="https://github.com/arthurpyshniy-design/Portfolio">Код сайта</a></div></nav></div></header>
-  <main class="wrap">
-    <div class="eyebrow">Case study / Web</div>
-    <h1>Личный сайт-портфолио</h1>
-    <p class="lead">Единая публичная точка входа для проектов разных направлений. Сайт отделяет краткую презентацию работ от их исходников и подробных материалов, которые могут храниться в отдельных репозиториях или оставаться локальными.</p>
-    <span class="status">Первая опубликованная версия · каталог в развитии</span>
-
-    <div class="facts">
-      <div class="fact"><div class="label">Назначение</div><strong>Каталог проектов</strong></div>
-      <div class="fact"><div class="label">Технологии</div><strong>HTML + CSS</strong></div>
-      <div class="fact"><div class="label">Публикация</div><strong>GitHub Pages</strong></div>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <header class="site-header">
+    <div class="wrap topbar">
+      <a class="brand" href="index.html" aria-label="Portfolio — главная"><span class="brand-mark" aria-hidden="true">PA</span><span class="brand-name">PORTFOLIO / PERSONAL ARCHIVE</span></a>
+      <nav class="navlinks" aria-label="Основная навигация"><a href="index.html#projects">Каталог</a><a href="index.html#about">Принципы</a><a class="source-link" href="https://github.com/arthurpyshniy-design/Portfolio">Исходный код ↗</a></nav>
     </div>
-
-    <section>
-      <div class="eyebrow">01 / Context</div>
-      <h2>Задача</h2>
-      <p>Собрать проекты в одном месте, хотя они отличаются по тематике и готовности. Часть материалов уже существует в GitHub, часть пока хранится на компьютере, а некоторые проекты не следует публиковать целиком.</p>
-      <p>Сайт должен показывать направление работы и статус проекта, не требуя переносить все исходники в один репозиторий.</p>
-    </section>
-
-    <section>
-      <div class="eyebrow">02 / Constraints</div>
-      <h2>Ограничения</h2>
-      <ul>
-        <li>Использовать бесплатный способ публикации и не покупать домен на первом этапе.</li>
-        <li>Сохранить исходники каждого проекта отдельно; не превращать сайт в общий монорепозиторий.</li>
-        <li>Не раскрывать приватный код, командные материалы и личные данные без проверки разрешений.</li>
-        <li>Сделать первую версию простой в поддержке, без сервера, базы данных и обязательной сборки.</li>
-      </ul>
-    </section>
-
-    <section>
-      <div class="eyebrow">03 / Approach</div>
-      <h2>Подход и реализация</h2>
-      <div class="two">
-        <div class="panel">
-          <h3>Статическая страница</h3>
-          <p>Главная страница реализована в одном файле <code>index.html</code>; стили CSS находятся внутри файла. JavaScript и серверная часть в текущей версии не используются.</p>
+  </header>
+  <main id="main">
+    <div class="wrap">
+      <section class="hero" aria-labelledby="case-title">
+        <div>
+          <div class="breadcrumbs"><a href="index.html">← Portfolio</a><span>/</span><span>CASE 002</span></div>
+          <div class="eyebrow">CASE 002 / WEB SYSTEM / AI-ASSISTED DEVELOPMENT</div>
+          <h1 id="case-title">Портфолио как система.<br><em>И сам проект тоже.</em></h1>
+          <p class="lead">Статический сайт для публикации проектов из разных областей. Кейс документирует не только интерфейс, но и решения по структуре, визуальной системе, развёртыванию и поддержанию достоверности материалов.</p>
+          <div class="tags"><span class="tag">HTML + CSS</span><span class="tag">GitHub Pages</span><span class="tag">AI-assisted</span><span class="tag">Content governance</span></div>
         </div>
-        <div class="panel">
-          <h3>Карточки со статусами</h3>
-          <p>Каталог показывает четыре проекта: GlyphDeck, FiberWatch, циферблат Xiaomi Watch S5 и Кабанан / NRI. Указывается, если материалы пока локальные или исходники приватные.</p>
+        <aside class="snapshot" aria-label="Краткие сведения о кейсе">
+          <div class="snapshot-head"><span>CASE FILE / 002</span><span>LIVE / ITERATIVE</span></div>
+          <div class="snapshot-row"><span class="meta-label">Задача</span><span class="meta-value">Единый архив разнотипных проектов</span></div>
+          <div class="snapshot-row"><span class="meta-label">Реализация</span><span class="meta-value">Несколько статических HTML-страниц, CSS в файлах</span></div>
+          <div class="snapshot-row"><span class="meta-label">Публикация</span><span class="meta-value">GitHub Pages из репозитория</span></div>
+          <div class="snapshot-row"><span class="meta-label">Роль ИИ</span><span class="meta-value">Помощь в черновой реализации, редактировании и ревизии</span></div>
+          <p class="status-note"><strong>Текущий статус:</strong> опубликованный каталог в развитии. Полная проверка доступности, мобильная проверка на реальном устройстве и замеры производительности ещё не выполнены.</p>
+        </aside>
+      </section>
+
+      <section class="section" id="problem" aria-labelledby="problem-title">
+        <div class="section-head">
+          <div><span class="section-index">01 / ЗАДАЧА</span><h2 id="problem-title">Один сайт — разные типы работы</h2></div>
+          <p class="section-intro">Инженерные, программные, дизайнерские и творческие проекты различаются не только темой, но и уровнем готовности, доступностью исходников и тем, какое доказательство результата можно публиковать.</p>
         </div>
-        <div class="panel">
-          <h3>Простая адаптивная сетка</h3>
-          <p>В CSS есть контрольная точка на ширине 640 px: карточки переключаются с двух колонок на одну. Фактическая проверка на телефоне ещё не проводилась.</p>
+        <div class="two">
+          <article class="panel"><div class="number">PROBLEM 01</div><h3>Не сводить всё к галерее</h3><p>Одна сетка превью не объясняет задачу, вклад автора, ограничения и степень проверки проекта. Для значимых работ нужен отдельный кейс; для незавершённых достаточно честной архивной записи.</p></article>
+          <article class="panel"><div class="number">PROBLEM 02</div><h3>Не выдавать планы за результаты</h3><p>Некоторые исходники приватны или остаются в отдельных репозиториях. Сайт должен сообщать, что именно опубликовано и что подтверждено, не имитируя готовность проекта.</p></article>
         </div>
-        <div class="panel">
-          <h3>Публикация из репозитория</h3>
-          <p>Исходник и README размещены в публичном репозитории <a href="https://github.com/arthurpyshniy-design/Portfolio">Portfolio</a>; опубликованная страница доступна по адресу <a href="https://arthurpyshniy-design.github.io/Portfolio/">GitHub Pages</a>.</p>
+      </section>
+
+      <section class="section" id="constraints" aria-labelledby="constraints-title">
+        <div class="section-head">
+          <div><span class="section-index">02 / ОГРАНИЧЕНИЯ</span><h2 id="constraints-title">Сознательно небольшой стек</h2></div>
+          <p class="section-intro">Для первого работающего архива нет необходимости строить полноценное веб-приложение. Главный риск здесь — не отсутствие сложной технологии, а устаревшее содержание и рост несогласованных страниц.</p>
         </div>
-      </div>
-    </section>
+        <div class="three">
+          <article class="panel"><div class="number">01 / COST</div><h3>Бесплатная публикация</h3><p>GitHub Pages и адрес <code>github.io</code> позволяют начать без покупки домена и отдельного сервера.</p></article>
+          <article class="panel"><div class="number">02 / COMPLEXITY</div><h3>Статические страницы</h3><p>HTML и CSS без клиентского JavaScript, базы данных, CMS или пользовательского аккаунта. Это соответствует объёму каталога на текущем этапе.</p></article>
+          <article class="panel"><div class="number">03 / PRIVACY</div><h3>Источники раздельно</h3><p>Портфолио — точка входа, а не монорепозиторий всех проектов. Внутренние материалы и командные данные не должны попадать на сайт автоматически.</p></article>
+        </div>
+      </section>
 
-    <section>
-      <div class="eyebrow">04 / Verification</div>
-      <h2>Что проверено</h2>
-      <ul>
-        <li>Страница открывалась в браузере; визуальная проверка по скриншоту подтвердила отображение шапки, вводного блока, каталога, информации о портфолио и подвала.</li>
-        <li>В репозитории проверены <code>index.html</code>, <code>README.md</code> и отдельная страница этого кейса <code>portfolio-case.html</code>.</li>
-        <li>В исходнике присутствуют метатег viewport и CSS-правило для узкого экрана.</li>
-      </ul>
-      <div class="note"><p><strong>Граница проверки:</strong> не проводились автоматические тесты, проверка доступности для скринридеров, замеры производительности или полноценная проверка на мобильном устройстве. Никакие количественные показатели качества не заявляются.</p></div>
-    </section>
+      <section class="section" id="architecture" aria-labelledby="architecture-title">
+        <div class="section-head">
+          <div><span class="section-index">03 / АРХИТЕКТУРА</span><h2 id="architecture-title">Индекс и отдельные кейсы</h2></div>
+          <p class="section-intro">Структура намеренно простая: главная страница ведёт к опубликованным подробным кейсам и кратким записям каталога. Эта схема описывает структуру файлов и ссылок, а не динамический поток данных.</p>
+        </div>
+        <div class="architecture" role="img" aria-label="Архитектура статического портфолио: index.html ведёт к двум подробным страницам portfolio-case.html и xiaomi-watch-s5.html; дизайн-система и README документируют правила и публикацию.">
+          <div class="arch-stack">
+            <div class="arch-node primary"><code>index.html</code><strong>Главная / архив</strong><small>Избранный проект, каталог, принципы</small></div>
+            <div class="arch-node"><code>DESIGN_SYSTEM.md</code><strong>Правила системы</strong><small>Визуальная иерархия, статусы, проверка</small></div>
+            <div class="arch-node"><code>README.md</code><strong>Документация</strong><small>Состав репозитория и публикация</small></div>
+          </div>
+          <div class="arch-link" aria-hidden="true"><span>LINKS</span><span class="arrow"></span><span>DETAIL</span></div>
+          <div class="arch-stack">
+            <div class="arch-node secondary"><code>portfolio-case.html</code><strong>CASE 002 / этот кейс</strong><small>Сайт как проект: решения и ограничения</small></div>
+            <div class="arch-node"><code>xiaomi-watch-s5.html</code><strong>CASE 001 / визуальная работа</strong><small>Отдельный кейс с изображениями процесса</small></div>
+            <div class="arch-node"><code>assets/watchface/</code><strong>Материалы кейса</strong><small>Отобранные кадры исходного процесса</small></div>
+          </div>
+        </div>
+        <p class="section-intro" style="margin-top:12px">Реализация без сборщика: страницы самостоятельны, а стили частично дублируются. Дизайн-система задаёт правила, но пока не обеспечивает их автоматическое применение из общего CSS-файла.</p>
+      </section>
 
-    <section>
-      <div class="eyebrow">05 / Contribution</div>
-      <h2>Роль автора и использование ИИ</h2>
-      <p>Автор определил назначение сайта, состав направлений, требования к приватности, создал репозиторий и проверил опубликованную страницу в браузере. Первичная HTML/CSS-реализация и текст README были подготовлены с помощью ChatGPT и внесены в репозиторий с использованием GitHub-инструментов.</p>
-      <p>Поэтому эту версию корректно описывать как AI-assisted prototype, а не как полностью самостоятельно написанный код.</p>
-    </section>
+      <section class="section" id="decisions" aria-labelledby="decisions-title">
+        <div class="section-head">
+          <div><span class="section-index">04 / РЕШЕНИЯ</span><h2 id="decisions-title">Почему сайт устроен именно так</h2></div>
+          <p class="section-intro">Каждое существенное решение отвечает конкретному ограничению. Новая функция не добавляется только ради демонстрации технологии.</p>
+        </div>
+        <div class="two">
+          <article class="panel"><div class="number">DECISION A / NAVIGATION</div><h3>Архивная, а не продуктовая подача</h3><p>Идентификаторы <code>CASE</code> и <code>ENTRY</code>, разделители и служебные метки помогают ориентироваться в разных типах содержания. Проекты получают свои визуальные доказательства, но сохраняют общую навигацию.</p></article>
+          <article class="panel"><div class="number">DECISION B / VISUAL LANGUAGE</div><h3>Одна система, разные материалы</h3><p>Тёмный фон и приглушённые поверхности отделяют контентные блоки; бирюзовый используется для навигации, тёплый оттенок — для ограниченных архивных акцентов. Это поддерживает инженерную и редакционную подачу без симуляции технического HUD.</p></article>
+          <article class="panel"><div class="number">DECISION C / IMPLEMENTATION</div><h3>Без преждевременного фреймворка</h3><p>При нескольких статических страницах HTML/CSS проще читать и публиковать напрямую. Недостаток — повторение части CSS и ручная синхронизация стилей; извлечение общего файла стоит делать, когда расхождение страниц станет реальной проблемой.</p></article>
+          <article class="panel"><div class="number">DECISION D / CONTENT</div><h3>Публиковать только актуальное</h3><p>Кейс FiberWatch временно снят, когда описание на сайте перестало соответствовать текущему состоянию данных проекта. Это не удаление командной работы, а управление границами публичной публикации до сверки материалов.</p></article>
+        </div>
+      </section>
 
-    <section>
-      <div class="eyebrow">06 / Outcome & next steps</div>
-      <h2>Результат и дальнейшая работа</h2>
-      <p>Создан и опубликован работающий каталог с четырьмя карточками проектов. Он даёт общую точку входа, сохраняя отдельное хранение исходников и позволяя обозначать ограничения публикации.</p>
-      <ul>
-        <li>Добавить отдельные кейсы с доказательствами результата и ссылками на доступные материалы.</li>
-        <li>Проверить вёрстку на реальном телефоне и на обычном масштабе браузера.</li>
-        <li>Добавить прямые ссылки только там, где материалы действительно доступны и согласованы к публикации.</li>
-        <li>Обновлять описания и статусы по мере развития проектов.</li>
-      </ul>
-    </section>
+      <section class="section" id="iterations" aria-labelledby="iterations-title">
+        <div class="section-head">
+          <div><span class="section-index">05 / ИТЕРАЦИИ</span><h2 id="iterations-title">Что изменялось по ходу работы</h2></div>
+          <p class="section-intro">Вместо полного списка мелких правок оставлены этапы, которые заметно изменили устройство или принципы сайта. Ссылки ведут на соответствующие записи Git.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-date">10 OCT 2026 / 01</div>
+            <div class="timeline-content"><h3>Первый работающий индекс</h3><p>Создана начальная главная страница, затем отдельный кейс о самом портфолио. <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/cd0b580c9ce1f7fa3d35d03f06971e4e3133f975">Первый индекс ↗</a> · <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/0621b926d59e30f93c4bd34ffb9b0ef87fc1d8dd">Первый кейс ↗</a></p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-date">11 OCT 2026 / 02</div>
+            <div class="timeline-content"><h3>Переход от списка к подробному доказательству</h3><p>Добавлен кейс циферблата с процессом и отобранными изображениями, чтобы отдельная работа была понятна без чтения всего архива. <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/a52e82056f8d4ebe530e7fd793eaf05034e2fe09">Коммит кейса ↗</a></p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-date">11 OCT 2026 / 03</div>
+            <div class="timeline-content"><h3>Документирование дизайн-системы и адаптивности</h3><p>Создана дизайн-система, затем отдельно исправлена мобильная навигация. Это зафиксировало общие правила и выявило, что сами CSS-файлы всё ещё поддерживаются вручную. <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/a3b9b44550a7c4c0decf6486e3e3f0a36046076e">Дизайн-система ↗</a> · <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/c708901dda2f780d0bb23d0e4e815a48208da9eb">Мобильная навигация ↗</a></p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-date">11 OCT 2026 / 04</div>
+            <div class="timeline-content"><h3>Редакционная структура архива</h3><p>Иерархия CASE/ENTRY, метаданные проекта и отдельное визуальное место для избранной работы сформировали текущий принцип главной страницы. <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/89e5a1294f1db65eb561b35ab9bbf41dc92d9f5b">Коммит переработки ↗</a></p></div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-date">11 OCT 2026 / 05</div>
+            <div class="timeline-content"><h3>Проверка актуальности публикации</h3><p>Кейс FiberWatch снят с публичной страницы до сверки описания с данными, актуальными в проекте. Это показывает, что состояние контента — часть сопровождения, а не одноразовая задача запуска. <a href="https://github.com/arthurpyshniy-design/Portfolio/commit/b65266d4e1790255fe7e69a3449807d3f02f73d0">Коммит снятия кейса ↗</a></p></div>
+          </article>
+        </div>
+      </section>
 
-    <section>
-      <div class="eyebrow">Current limitations</div>
-      <h2>Ограничения текущей версии</h2>
-      <p>Каталог пока содержит краткие описания, но не все карточки ведут на самостоятельные страницы проектов. Нет CMS, фильтрации, поиска по категориям или автоматического обновления каталога. Это сознательно оставлено за пределами первой версии.</p>
-    </section>
+      <section class="section" id="verification" aria-labelledby="verification-title">
+        <div class="section-head">
+          <div><span class="section-index">06 / ПРОВЕРКА</span><h2 id="verification-title">Что подтверждено</h2></div>
+          <p class="section-intro">Отделяю доказательства реализации от предположений об удобстве или качестве. Успешная публикация доказывает, что сборка и развёртывание завершились, но не подтверждает все свойства сайта.</p>
+        </div>
+        <div class="check-list">
+          <article class="check-item"><h3><span class="status-pill">Подтверждено</span></h3><p>Текущий репозиторий содержит главную страницу, две подробные страницы, README, инструкцию публикации, дизайн-систему и изображения кейса циферблата.</p></article>
+          <article class="check-item"><h3><span class="status-pill">Подтверждено</span></h3><p>GitHub Actions завершил сборку и деплой коммита, который снял FiberWatch с публикации. <a href="https://github.com/arthurpyshniy-design/Portfolio/actions/runs/38150654313">Запуск № 18 ↗</a></p></article>
+          <article class="check-item"><h3>Проверено частично</h3><p>Ранее главная страница была просмотрена в браузере. Наличие CSS media queries подтверждает, что адаптивность предусмотрена в коде, но не доказывает корректное отображение на каждом устройстве.</p></article>
+          <article class="check-item"><h3>Пока не проверено</h3><p>Формальная оценка WCAG, тесты клавиатурной навигации по всем страницам, реальное мобильное устройство, Lighthouse/Core Web Vitals, пользовательские задачи и аналитика посещений.</p></article>
+        </div>
+        <div class="callout"><h3>Принцип доказательности</h3><p>Инструментальные проверки полезны, но не подтверждают все качества интерфейса. W3C прямо отмечает, что автоматические инструменты не могут определить доступность сайта целиком и требуют дополнения человеческой оценкой.</p></div>
+      </section>
+
+      <section class="section" id="role" aria-labelledby="role-title">
+        <div class="section-head">
+          <div><span class="section-index">07 / ЛИЧНЫЙ ВКЛАД</span><h2 id="role-title">Роль автора и ИИ</h2></div>
+          <p class="section-intro">Кейс не претендует на то, что весь код написан вручную. Важно различать проектные решения, которые принимались в процессе, и помощь при реализации.</p>
+        </div>
+        <div class="two">
+          <article class="panel"><div class="number">AUTHOR / DIRECTION</div><h3>Что определял автор</h3><p>Цель архива, типы проектов, приоритет достоверности и приватности, выбор редакционной структуры, направление визуальной системы и решение, какие материалы допустимо публиковать.</p></article>
+          <article class="panel"><div class="number">AI / IMPLEMENTATION SUPPORT</div><h3>Как использовался ChatGPT</h3><p>Помощь с черновиками HTML/CSS и документации, обсуждение вариантов, ревизии и подготовка изменений в репозитории. Поэтому реализацию корректно описывать как AI-assisted, а не как полностью самостоятельное написание кода.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="outcome" aria-labelledby="outcome-title">
+        <div class="section-head">
+          <div><span class="section-index">08 / РЕЗУЛЬТАТ</span><h2 id="outcome-title">Что есть сейчас, а что дальше</h2></div>
+          <p class="section-intro">Сайт уже выполняет базовую роль публичного индекса и одновременно служит примером разработки и обслуживания небольшого веб-проекта. Его качество ещё не подтверждено полноценным аудитом.</p>
+        </div>
+        <div class="two">
+          <article class="panel"><div class="number">CURRENT RESULT</div><h3>Рабочая основа</h3><ul class="list"><li>публичная главная страница и каталог из трёх записей;</li><li>два подробных кейса: сайт и циферблат;</li><li>документированная дизайн-система и инструкция публикации;</li><li>история изменений, доступная в Git.</li></ul></article>
+          <article class="panel"><div class="number">NEXT VALIDATION</div><h3>Следующие полезные шаги</h3><ul class="list"><li>проверить главную и обе страницы на мобильной ширине;</li><li>пройти все ссылки и навигацию только клавиатурой;</li><li>проверить увеличение текста, alt-тексты и контраст;</li><li>по необходимости выполнить Lighthouse и сохранить результаты с датой;</li><li>не добавлять функции, пока не выявлена реальная проблема.</li></ul></article>
+        </div>
+        <div class="links">
+          <a class="link" href="index.html">← Вернуться к Portfolio</a>
+          <a class="link" href="xiaomi-watch-s5.html">Открыть CASE 001 ↗</a>
+          <a class="link" href="https://github.com/arthurpyshniy-design/Portfolio">Исходный код ↗</a>
+          <a class="link" href="https://github.com/arthurpyshniy-design/Portfolio/commits/main">История изменений ↗</a>
+        </div>
+      </section>
+
+      <section class="section" id="references" aria-labelledby="references-title">
+        <div class="section-head">
+          <div><span class="section-index">09 / ИСТОЧНИКИ</span><h2 id="references-title">Методические опоры</h2></div>
+          <p class="section-intro">Внешние источники использованы для выбора формы кейса и границ проверок, а не как подтверждение того, что наш сайт уже соответствует всем рекомендациям.</p>
+        </div>
+        <div class="sources">
+          <div class="source-row"><a href="https://www.nngroup.com/articles/ux-design-portfolios/">Nielsen Norman Group — 5 Steps to Creating a UX-Design Portfolio ↗</a><p>Обосновывает акцент на процессе, роли, ограничениях, итерациях и результатах вместо одной финальной картинки.</p></div>
+          <div class="source-row"><a href="https://www.w3.org/WAI/test-evaluate/">W3C WAI — Evaluating Web Accessibility ↗</a><p>Помогает отделить быстрые проверки и автоматизированные инструменты от полноценной оценки доступности.</p></div>
+          <div class="source-row"><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub Docs — Configuring a publishing source ↗</a><p>Официальное описание вариантов публикации GitHub Pages и проверки workflow при проблемах развёртывания.</p></div>
+        </div>
+      </section>
+    </div>
   </main>
-  <footer><div class="wrap"><a href="index.html">← Назад к каталогу</a> · <a href="https://github.com/arthurpyshniy-design/Portfolio">Исходный код и README</a></div></footer>
+  <footer><div class="wrap footer-inner"><span>Portfolio / CASE 002 · Web system</span><span>AI-assisted implementation · limits stated explicitly</span></div></footer>
 </body>
 </html>
